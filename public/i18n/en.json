@@ -1,0 +1,289 @@
+{
+  "brandShort": "MIU",
+  "brandFull": "MIU — Mongolian Innovation Unity",
+  "tagline": "Bringing global innovation to Mongolia, Mongolian ideas to the world",
+  "skipToContent": "Skip to content",
+  "langSwitch": "MN",
+
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products & Brands",
+    "contact": "Contact",
+    "cta": "Work with us"
+  },
+
+  "footer": {
+    "tagline": "Bringing global innovation to Mongolia, Mongolian ideas to the world.",
+    "navTitle": "Pages",
+    "contactTitle": "Contact",
+    "address": "Room 5006, Galaxy Tower, 15th khoroo, Khan-Uul district, Ulaanbaatar, Mongolia",
+    "rights": "All rights reserved.",
+    "regTitle": "Founded 2012.02.11 · 14 years of experience"
+  },
+
+  "home": {
+    "eyebrow": "MIU — Mongolian Innovation Unity",
+    "heroTitle": "Leading global technology brands, delivered to Mongolia's mining and industrial sector",
+    "heroSubtitle": "We supply original-quality measuring instruments, electrical and mechanical equipment from world-leading brands — Siemens, ABB, Schneider Electric, Yokogawa, Fluke — for both tenders and commercial trade.",
+    "heroLine1": "Some distributors sell what's already in the warehouse.",
+    "heroLine2": "We build what your operation actually needs.",
+    "heroSubBrands": "Siemens · ABB · Schneider Electric · Yokogawa · Fluke — matched to your tier, not your budget line.",
+    "scrollCue": "Find your fit",
+    "ctaPrimary": "Send a partnership inquiry",
+    "ctaSecondary": "Products & brands",
+
+    "positioning": "The world's best technology. On time. To specification. In Mongolia.",
+    "positioningSub": "For Mongolian industry that cannot afford downtime, MIU is the authorized distribution partner delivering the world's most trusted industrial technology — backed by local engineering, documentation, and accountability that global vendors alone cannot offer.",
+
+    "visionCtaEyebrow": "Vision",
+    "visionCtaTitle": "Our vision for Mongolia's industrial future",
+    "visionCtaButton": "About us",
+
+    "brandShowcaseEyebrow": "Partner brands",
+    "brandShowcaseTitle": "Official partner to 8 leading global brands",
+    "brandShowcaseButton": "See all brands",
+
+    "highlightsEyebrow": "Key facts",
+    "highlightsTitle": "From our story",
+    "highlights": [
+      { "title": "Founded in 2012", "desc": "14 years serving Mongolia's mining and industrial sector." },
+      { "title": "Operating through tenders and commercial trade", "desc": "Supplying Mongolia's mining sector through both public tenders and direct commercial trade." },
+      { "title": "Partner to 5 leading nations' brands", "desc": "Official supplier of Siemens, ABB, Schneider Electric, Yokogawa, and Fluke." },
+      { "title": "Supplying Erdenet Mining Corporation", "desc": "A real relationship with Mongolia's largest copper mine." }
+    ],
+
+    "statsTitle": "By the numbers",
+    "stats": [
+      { "value": "14+", "label": "years of experience (since 2012)" },
+      { "value": "8", "label": "global partner brands" },
+      { "value": "3", "label": "supply tiers" },
+      { "value": "100%", "label": "original-quality products" }
+    ],
+
+    "pillarsTitle": "What we supply",
+    "pillarsSubtitle": "Our product supply priorities",
+    "pillars": [
+      {
+        "order": "01",
+        "title": "Sensors & measuring instruments",
+        "desc": "Sensors, meters and testers for industrial measurement and automation.",
+        "brands": "Yokogawa · JUMO · Fluke"
+      },
+      {
+        "order": "02",
+        "title": "Electrical equipment",
+        "desc": "Electrical equipment for power management and industrial automation.",
+        "brands": "Siemens · ABB · Schneider Electric"
+      },
+      {
+        "order": "03",
+        "title": "Mechanical equipment",
+        "desc": "Reducers and industrial line equipment and spare parts.",
+        "brands": "Industrial line equipment"
+      }
+    ],
+
+    "brandsTitle": "Global partner brands",
+    "brandsSubtitle": "Original-quality products, reliably sourced from official channels",
+
+    "clientsTitle": "Clients & target markets",
+    "currentClientsLabel": "Current client",
+    "currentClients": ["Erdenet Mining Corporation"],
+    "targetMarketLabel": "Target market — Mongolia's strategic deposits",
+    "targetMarket": ["Oyu Tolgoi", "Erdenes Tavan Tolgoi"],
+    "clientsNote": "Mongolia's strategically important large deposits represent a broad market with steady, sustained demand.",
+
+    "ctaBannerTitle": "Have a tender or supply need?",
+    "ctaBannerSubtitle": "We work with the documentation and manufacturer authorization tenders require, sourced from official channels.",
+    "ctaBannerButton": "Get in touch",
+
+    "trustLabels": ["years of experience", "leading brands", "supply tiers", "2025 sales revenue (₮)"],
+
+    "explorer": {
+      "eyebrow": "Capability Explorer",
+      "title": "Find the right fit for your operation",
+      "subtitle": "Three steps to the brand, tier, and next step that match your actual need — a real answer, not a toy.",
+      "stage1Label": "1. Select your tier",
+      "tiers": [
+        {
+          "key": "sensors",
+          "title": "Sensors & Measurement",
+          "brands": "Yokogawa · JUMO · Fluke",
+          "useCases": ["Flow measurement on pump lines", "Temperature & pressure monitoring"],
+          "gaugeNote": "3 of 5 partner brands serve this tier"
+        },
+        {
+          "key": "electrical",
+          "title": "Electrical Equipment",
+          "brands": "Siemens · ABB · Schneider Electric",
+          "useCases": ["Substation upgrades", "Switchgear & control systems"],
+          "gaugeNote": "3 of 5 partner brands serve this tier"
+        },
+        {
+          "key": "mechanical",
+          "title": "Mechanical Equipment",
+          "brands": "Reducers & line equipment",
+          "useCases": ["Transmission reducer replacement", "Industrial line spare parts"],
+          "gaugeNote": "14 years of supply experience"
+        }
+      ],
+      "stage2Label": "2. Project stage",
+      "stages": [
+        { "key": "new", "label": "New project", "cta": "Request a general consultation" },
+        { "key": "expand", "label": "Expanding an existing line", "cta": "Request an equipment quote" },
+        { "key": "replace", "label": "Replacing failed equipment", "cta": "Request urgent spare-parts support" },
+        { "key": "tender", "label": "Preparing a tender submission", "cta": "Request a manufacturer-authorization letter for {brand}" }
+      ],
+      "stage3Label": "3. Your Needs Brief",
+      "summary": {
+        "tierLabel": "Tier",
+        "stageLabel": "Stage",
+        "brandsLabel": "Matching brands",
+        "useCaseLabel": "Example use case"
+      },
+      "printBtn": "Print / download brief",
+      "emailBtn": "Email our team",
+      "contactBtn": "Continue to contact form",
+      "disclaimer": "This brief is a starting point — our engineers will confirm final technical specifications with you directly.",
+      "startOver": "Start over"
+    },
+
+    "network": {
+      "eyebrow": "Global supply network",
+      "title": "Connecting 5 countries of brands to Mongolia's mines",
+      "subtitle": "MIU is the bridge between the world's leading manufacturers and Mongolia's mining and industrial sector.",
+      "hint": "Click a brand or client node to see details.",
+      "hubLabel": "MIU · Ulaanbaatar",
+      "clientTag": "Current client",
+      "targetTag": "Target deposit — not a current client",
+      "legendClient": "Active client",
+      "legendTarget": "Target market",
+      "srTableCaption": "MIU's global partner brands and Mongolian clients / target markets"
+    }
+  },
+
+  "about": {
+    "eyebrow": "About us",
+    "heroTitle": "Enriching global technology with Mongolian know-how",
+    "heroSubtitle": "Since 2012, MIU has worked as an official representative of world-leading brands in Mongolia's mining and industrial sector.",
+
+    "originTitle": "Company information",
+    "originFounded": "Founded",
+    "originFoundedValue": "February 11, 2012",
+    "originDomain": "Domain",
+    "originDomainValue": "miu.mn",
+
+    "visionTitle": "Vision",
+    "vision": "To create a new wave of modern eco-technology and build a sustainable way of life for the future.",
+
+    "missionTitle": "Mission",
+    "mission": "We reimagine humanity's technological achievements and discoveries — merging modern progress with the wisdom of traditional life — to offer the world more balanced, eco-rooted solutions.",
+
+    "valuesTitle": "Core values",
+    "values": [
+      { "title": "Natural science", "desc": "Solving problems in harmony with nature's own rhythm and balance." },
+      { "title": "Nomadic heritage", "desc": "Making a simple yet intelligent, adaptable way of life the core idea behind our business." },
+      { "title": "Innovative thinking", "desc": "Seeing the old in a new light — the ability to reinvent global technology." },
+      { "title": "Sustainable development", "desc": "Building systems that are environmentally friendly and built to last." },
+      { "title": "Global openness", "desc": "Sharing our domestic value with the world, enriching global progress with Mongolian know-how." }
+    ],
+
+    "principlesTitle": "Business principles",
+    "principlesSubtitle": "We operate by international standards of business ethics",
+    "principles": [
+      { "title": "Reliability", "desc": "Fulfilling commitments, tender terms and deadlines on time, every time." },
+      { "title": "Protecting brand reputation", "desc": "Respecting the vision, goals and values of our partner brands, acting as a long-term reliable partner in promoting and introducing their products to the domestic market." },
+      { "title": "Fair pricing", "desc": "Growing value through reliable, sustainable, responsive delivery rather than high margins." }
+    ],
+
+    "strategicTitle": "Strategic goal",
+    "strategic": "MIU aims to bring in brands that offer leading technology solutions, become their official representative/distributor, and drive market entry across both tender and commercial trade. In working with international brand partners, we hold their reputation, goals and values in high regard, and prioritize long-term, mutually beneficial partnerships.",
+
+    "activityTitle": "Registered business activities",
+    "activitySubtitle": "State registration codes",
+    "activities": [
+      { "code": "24100", "name": "Trade in iron and steel structures" },
+      { "code": "46530", "name": "Trade in mining equipment" },
+      { "code": "46100", "name": "Wholesale trade on a fee or contract basis" },
+      { "code": "82190", "name": "Project implementation" },
+      { "code": "47220", "name": "Trade in renewable energy equipment" },
+      { "code": "62090", "name": "Information technology activities" },
+      { "code": "58200", "name": "Software services" },
+      { "code": "95110", "name": "Manufacture of computer equipment accessories" },
+      { "code": "45300", "name": "Trade in automobile parts and components" }
+    ]
+  },
+
+  "products": {
+    "eyebrow": "Products & brands",
+    "heroTitle": "Original-quality equipment, sourced from official channels",
+    "heroSubtitle": "Every product we supply is original-quality, reliably sourced from official channels.",
+
+    "priorityTitle": "Our product supply priorities",
+    "priorities": [
+      {
+        "order": "1",
+        "title": "Sensors & measuring instruments",
+        "desc": "Meters, sensors and testers for industrial process control and quality inspection.",
+        "brands": ["Yokogawa", "JUMO", "Fluke"]
+      },
+      {
+        "order": "2",
+        "title": "Electrical equipment",
+        "desc": "Electrical equipment for power management and industrial automation.",
+        "brands": ["Siemens", "ABB", "Schneider Electric"]
+      },
+      {
+        "order": "3",
+        "title": "Mechanical equipment",
+        "desc": "Reducers and industrial line equipment and spare parts.",
+        "brands": []
+      }
+    ],
+
+    "brandsTitle": "Partner brands",
+    "brandsLeadTitle": "Leading global brands",
+    "brands": [
+      { "name": "Siemens", "country": "Germany", "focus": "Industrial automation, electrical equipment" },
+      { "name": "ABB", "country": "Switzerland", "focus": "Robotics, power, automation" },
+      { "name": "Schneider Electric", "country": "France", "focus": "Power management, automation" },
+      { "name": "Yokogawa", "country": "Japan", "focus": "Measuring instruments, industrial automation" },
+      { "name": "Fluke", "country": "USA", "focus": "Test tools, multimeters" }
+    ],
+    "brandsOtherTitle": "Other partner brands",
+    "brandsOther": ["JUMO", "FAT", "London Electric"],
+
+    "principleTitle": "Our supply principle",
+    "principleText": "Every product we supply is original-quality, reliably sourced from official channels. We work with the manufacturer authorization and conformity certificates that tenders require.",
+
+    "ctaTitle": "Have a question about a specific product?",
+    "ctaButton": "Contact us"
+  },
+
+  "contact": {
+    "eyebrow": "Contact",
+    "heroTitle": "Send a partnership inquiry",
+    "heroSubtitle": "Get in touch about supply, tenders, or brand partnership.",
+
+    "infoTitle": "Contact information",
+    "addressLabel": "Address",
+    "address": "Room 5006, Galaxy Tower, 15th khoroo, Khan-Uul district, Ulaanbaatar, Mongolia",
+    "emailLabel": "Email",
+    "email": "info@miu.mn",
+
+    "formTitle": "Send a message",
+    "formName": "Name",
+    "formCompany": "Organization",
+    "formEmail": "Email",
+    "formPhone": "Phone",
+    "formSubject": "Subject",
+    "formSubjectOptions": ["Supply inquiry", "Tender partnership", "Brand partnership", "Other"],
+    "formMessage": "Message",
+    "formSubmit": "Send",
+    "formSuccess": "Thank you! We've received your message and will be in touch shortly.",
+    "formError": "Sorry, something went wrong. Please try again or email us directly.",
+    "prefillNote": "We've pre-filled the tier and stage you selected below.",
+    "prefillClear": "Clear"
+  }
+}

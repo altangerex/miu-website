@@ -1,0 +1,67 @@
+---
+import type { Locale } from '../i18n/utils';
+import { useTranslations, localizedPath, swapLocaleInPath } from '../i18n/utils';
+import Logo from './Logo.astro';
+
+interface Props {
+  locale: Locale;
+  active?: string;
+}
+const { locale, active } = Astro.props;
+const { t } = useTranslations(locale);
+const otherLocale: Locale = locale === 'mn' ? 'en' : 'mn';
+const langHref = swapLocaleInPath(Astro.url.pathname, otherLocale);
+
+const links = [
+  { key: 'home', path: '/' },
+  { key: 'about', path: '/about' },
+  { key: 'products', path: '/products' },
+  { key: 'contact', path: '/contact' },
+];
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href={localizedPath(locale, '/')} aria-label={t('brandFull')}>
+      <Logo />
+      <span class="brand-sub" aria-hidden="true">Mongolian Innovation Unity</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      {links.map((l) => (
+        <a
+          class={`nav-link${active === l.key ? ' active' : ''}`}
+          href={localizedPath(locale, l.path)}
+        >
+          {t(`nav.${l.key}`)}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="lang-toggle" href={langHref} aria-label="Switch language">{t('langSwitch')}</a>
+      <a class="btn btn-primary" href={localizedPath(locale, '/contact')}>{t('nav.cta')}</a>
+      <button class="mobile-nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4.5H16M2 9H16M2 13.5H16" stroke="#16232E" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    {links.map((l) => (
+      <a href={localizedPath(locale, l.path)}>{t(`nav.${l.key}`)}</a>
+    ))}
+    <a href={langHref}>{otherLocale === 'en' ? 'English' : 'Монгол'}</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const nav = document.getElementById('mobileNav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>

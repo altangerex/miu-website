@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations, getDict, localeStaticPaths } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const { t } = useTranslations(locale);
+const dict = getDict(locale);
+const a = dict.about;
+---
+
+<BaseLayout locale={locale} title={t('nav.about')} active="about">
+  <section class="hero hero-page">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">{a.eyebrow}</span>
+      <h1 class="hero-title">{a.heroTitle}</h1>
+      <p class="hero-subtitle">{a.heroSubtitle}</p>
+
+      <div class="origin-strip">
+        <div class="origin-item">
+          <div class="k">{a.originFounded}</div>
+          <div class="v" style="color:#fff">{a.originFoundedValue}</div>
+        </div>
+        <div class="origin-item">
+          <div class="k">{a.originDomain}</div>
+          <div class="v" style="color:#fff">{a.originDomainValue}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="vm-grid">
+        <div class="vm-card vision">
+          <h3>{a.visionTitle}</h3>
+          <p>{a.vision}</p>
+        </div>
+        <div class="vm-card mission">
+          <h3>{a.missionTitle}</h3>
+          <p>{a.mission}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h-section">{a.valuesTitle}</h2>
+      </div>
+      <div class="value-grid">
+        {a.values.map((v) => (
+          <div class="value-card">
+            <h3>{v.title}</h3>
+            <p>{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">{a.principlesTitle}</span>
+        <h2 class="h-section">{a.principlesSubtitle}</h2>
+      </div>
+      <div class="principle-list">
+        {a.principles.map((p, i) => (
+          <div class="principle-row">
+            <span class="principle-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="strategic-panel">
+        <span class="eyebrow">{a.strategicTitle}</span>
+        <p style="margin-top: 14px;">{a.strategic}</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap-narrow">
+      <div class="section-head left">
+        <span class="eyebrow">{a.activitySubtitle}</span>
+        <h2 class="h-section">{a.activityTitle}</h2>
+      </div>
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>{locale === 'mn' ? 'Код' : 'Code'}</th>
+            <th>{locale === 'mn' ? 'Чиглэл' : 'Activity'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {a.activities.map((act) => (
+            <tr>
+              <td class="code">{act.code}</td>
+              <td class="name">{act.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

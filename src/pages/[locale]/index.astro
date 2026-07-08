@@ -1,0 +1,92 @@
+---
+// Home page, restructured to the BC Mongolia (bcmongolia.org) template:
+// Hero banner -> Vision + About CTA -> Partnership CTA -> Brand showcase ->
+// Highlights -> Stats counters -> Client/target-market -> footer.
+// The earlier "Capability Explorer" / "Global Network" interactive build
+// (src/components/CapabilityExplorer.astro, NetworkMap.astro) is not
+// removed, just not used on Home per this revision -- still available to
+// reuse on a future page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import BrandShowcase from '../../components/BrandShowcase.astro';
+import Highlights from '../../components/Highlights.astro';
+import StatsCounter from '../../components/StatsCounter.astro';
+import { useTranslations, getDict, localizedPath, localeStaticPaths } from '../../i18n/utils';
+import type { Locale } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const { t } = useTranslations(locale);
+const dict = getDict(locale);
+const h = dict.home;
+const a = dict.about;
+---
+
+<BaseLayout locale={locale} title={t('nav.home')} active="home">
+  <Hero locale={locale} />
+
+  <section>
+    <div class="wrap">
+      <div class="vm-grid" style="grid-template-columns: 1fr;">
+        <div class="vm-card vision" style="max-width: 760px; margin: 0 auto; text-align: center;">
+          <span class="eyebrow" style="justify-content:center;">{h.visionCtaEyebrow}</span>
+          <h2 class="h-section" style="margin-top:10px;">{h.visionCtaTitle}</h2>
+          <p class="lead" style="margin-left:auto; margin-right:auto; color: var(--navy-deep); font-weight:600;">{a.vision}</p>
+          <a class="btn btn-primary" style="margin-top:20px;" href={localizedPath(locale, '/about')}>{h.visionCtaButton} →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="cta-banner">
+        <div>
+          <h2>{h.ctaBannerTitle}</h2>
+          <p>{h.ctaBannerSubtitle}</p>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <a class="btn btn-primary" href={localizedPath(locale, '/contact')}>{h.ctaBannerButton}</a>
+          <a class="btn btn-outline" style="background:rgba(255,255,255,.9);" href={localizedPath(locale, '/products')}>{h.ctaSecondary} →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <BrandShowcase locale={locale} />
+
+  <Highlights locale={locale} />
+
+  <StatsCounter locale={locale} />
+
+  <section>
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">{h.clientsTitle}</span>
+      </div>
+      <div class="client-panel">
+        <div class="client-col">
+          <div class="label">{h.currentClientsLabel}</div>
+          <div class="items">
+            {h.currentClients.map((c) => (
+              <div class="client-item"><span class="dot"></span>{c}</div>
+            ))}
+          </div>
+        </div>
+        <div class="client-col">
+          <div class="label">{h.targetMarketLabel}</div>
+          <div class="items">
+            {h.targetMarket.map((c) => (
+              <div class="client-item"><span class="dot" style="background:none;border:2px dashed #6B7885;"></span>{c}</div>
+            ))}
+          </div>
+          <p class="client-note">{h.network.targetTag} — {h.clientsNote}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

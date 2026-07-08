@@ -1,0 +1,199 @@
+---
+// MIU's actual value proposition, visualized as a real tool rather than
+// decoration: 5 brand-origin countries -> MIU (Ulaanbaatar hub) -> 3
+// Mongolia destinations. Client-vs-target status is doubled in shape AND
+// color (solid copper disc vs dashed sage outline) so it never depends on
+// color perception alone -- the compliance-critical distinction for a
+// government tender-evaluation audience.
+import { ORIGINS, DESTINATIONS, HUB, VIEWBOX, BUS_Y, DEST_BUS_Y, elbowPath } from '../data/network';
+import { getDict } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const dict = getDict(locale);
+const n = dict.home.network;
+const brandCountry = new Map(dict.products.brands.map((b) => [b.name, b.country]));
+const tierLabel: Record<string, string> = {
+  sensors: dict.products.priorities[0].title,
+  electrical: dict.products.priorities[1].title,
+  mechanical: dict.products.priorities[2].title,
+};
+
+function destLabel(d: (typeof DESTINATIONS)[number]): string {
+  if (d.key === 'client0') return dict.home.currentClients[0];
+  if (d.key === 'target0') return dict.home.targetMarket[0];
+  return dict.home.targetMarket[1];
+}
+
+const nodeInfo: Record<string, string> = {};
+ORIGINS.forEach((o) => {
+  nodeInfo[o.brand] = `${o.brand} — ${brandCountry.get(o.brand) ?? ''} · ${tierLabel[o.tier]}`;
+});
+DESTINATIONS.forEach((d) => {
+  nodeInfo[d.key] = d.status === 'client' ? `${destLabel(d)} — ${n.clientTag}` : `${destLabel(d)} — ${n.targetTag}`;
+});
+---
+
+<div class="network">
+  <div class="network-stage" id="networkStage">
+    <svg class="network-svg" viewBox={`0 0 ${VIEWBOX.w} ${VIEWBOX.h}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      {ORIGINS.map((o) => (
+        <path class="network-line" data-node={o.brand} data-tier={o.tier} d={elbowPath(o.x, o.y, BUS_Y, HUB.x, HUB.y)} />
+      ))}
+      {DESTINATIONS.map((d) => (
+        <path class={`network-line dest ${d.status}`} data-node={d.key} d={elbowPath(HUB.x, HUB.y, DEST_BUS_Y, d.x, d.y)} />
+      ))}
+      {ORIGINS.map((o) => (
+        <circle class="network-dot origin" data-node={o.brand} cx={o.x} cy={o.y} r="8" />
+      ))}
+      <circle class="network-dot hub" cx={HUB.x} cy={HUB.y} r="11" />
+      {DESTINATIONS.map((d) => (
+        <circle class={`network-dot dest ${d.status}`} data-node={d.key} cx={d.x} cy={d.y} r="10" />
+      ))}
+    </svg>
+
+    <div class="network-overlay">
+      {ORIGINS.map((o) => (
+        <button
+          type="button"
+          class="network-node origin"
+          data-node={o.brand}
+          data-tier={o.tier}
+          style={`left:${(o.x / VIEWBOX.w) * 100}%; top:${(o.y / VIEWBOX.h) * 100}%`}
+          aria-label={`${o.brand}, ${brandCountry.get(o.brand) ?? ''}`}
+        >
+          <span class="node-dot" aria-hidden="true"></span>
+          <span class="node-label">{o.brand}</span>
+        </button>
+      ))}
+      <div class="network-node hub" style={`left:${(HUB.x / VIEWBOX.w) * 100}%; top:${(HUB.y / VIEWBOX.h) * 100}%`} aria-hidden="true">
+        <span class="node-label">{n.hubLabel}</span>
+      </div>
+      {DESTINATIONS.map((d) => (
+        <button
+          type="button"
+          class={`network-node dest ${d.status}`}
+          data-node={d.key}
+          style={`left:${(d.x / VIEWBOX.w) * 100}%; top:${(d.y / VIEWBOX.h) * 100}%`}
+          aria-label={`${destLabel(d)} — ${d.status === 'client' ? n.clientTag : n.targetTag}`}
+        >
+          <span class="node-dot" aria-hidden="true"></span>
+          <span class="node-label">{destLabel(d)}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <p class="network-info" id="networkInfo" aria-live="polite">{n.hint}</p>
+
+  <div class="network-legend">
+    <span><span class="dot client"></span>{n.legendClient}</span>
+    <span><span class="dot target"></span>{n.legendTarget}</span>
+  </div>
+
+  <table class="sr-only">
+    <caption>{n.srTableCaption}</caption>
+    <thead>
+      <tr><th>{locale === 'mn' ? 'Брэнд / Харилцагч' : 'Brand / Client'}</th><th>{locale === 'mn' ? 'Улс' : 'Country'}</th><th>{locale === 'mn' ? 'Түвшин / Төлөв' : 'Tier / Status'}</th></tr>
+    </thead>
+    <tbody>
+      {ORIGINS.map((o) => (
+        <tr><td>{o.brand}</td><td>{brandCountry.get(o.brand)}</td><td>{tierLabel[o.tier]}</td></tr>
+      ))}
+      {DESTINATIONS.map((d) => (
+        <tr><td>{destLabel(d)}</td><td>—</td><td>{d.status === 'client' ? n.clientTag : n.targetTag}</td></tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<script define:vars={{ nodeInfo, hintText: n.hint }}>
+  const TIER_EVENT = 'miu:tier';
+  const stage = document.getElementById('networkStage');
+  const info = document.getElementById('networkInfo');
+  if (stage && info) {
+    const lines = Array.from(stage.querySelectorAll('.network-line'));
+    const nodes = Array.from(stage.querySelectorAll('.network-node'));
+
+    function showInfo(nodeKey) {
+      info.textContent = nodeInfo[nodeKey] || hintText;
+    }
+    function resetInfo() {
+      info.textContent = hintText;
+    }
+
+    function highlight(nodeKey) {
+      lines.forEach((line) => {
+        const match = line.dataset.node === nodeKey;
+        line.classList.toggle('lit', match);
+        line.classList.toggle('dim', !match);
+      });
+      nodes.forEach((node) => {
+        if (!node.dataset.node) return; // skip the non-interactive hub marker
+        const match = node.dataset.node === nodeKey;
+        node.classList.toggle('active', match);
+        node.classList.toggle('dim', !match);
+      });
+    }
+    function clearHighlight() {
+      lines.forEach((line) => line.classList.remove('lit', 'dim'));
+      nodes.forEach((node) => node.classList.remove('active', 'dim'));
+    }
+
+    nodes.forEach((node) => {
+      const key = node.dataset.node;
+      if (!key) return;
+      node.addEventListener('mouseenter', () => { highlight(key); showInfo(key); });
+      node.addEventListener('mouseleave', () => { clearHighlight(); resetInfo(); });
+      node.addEventListener('focus', () => { highlight(key); showInfo(key); });
+      node.addEventListener('blur', () => { clearHighlight(); resetInfo(); });
+      if (node.tagName === 'BUTTON' && node.dataset.tier) {
+        node.addEventListener('click', () => {
+          document.dispatchEvent(new CustomEvent(TIER_EVENT, { detail: node.dataset.tier }));
+        });
+      }
+    });
+
+    document.addEventListener(TIER_EVENT, (e) => {
+      const tier = e.detail;
+      if (!tier) { clearHighlight(); resetInfo(); return; }
+      lines.forEach((line) => {
+        const match = line.dataset.tier === tier;
+        const isDest = line.classList.contains('dest');
+        line.classList.toggle('lit', match);
+        line.classList.toggle('dim', !match && !isDest);
+      });
+      nodes.forEach((node) => {
+        if (!node.classList.contains('origin')) return;
+        node.classList.toggle('active', node.dataset.tier === tier);
+        node.classList.toggle('dim', node.dataset.tier !== tier);
+      });
+    });
+
+    // Scroll-triggered draw-in for the flow lines (once).
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    lines.forEach((line) => {
+      const len = line.getTotalLength();
+      line.style.strokeDasharray = String(len);
+      line.style.strokeDashoffset = prefersReducedMotion ? '0' : String(len);
+    });
+    if (!prefersReducedMotion) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              lines.forEach((line, i) => {
+                line.style.transition = `stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1) ${i * 0.06}s`;
+                requestAnimationFrame(() => (line.style.strokeDashoffset = '0'));
+              });
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      io.observe(stage);
+    }
+  }
+</script>

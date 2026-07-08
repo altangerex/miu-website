@@ -1,0 +1,50 @@
+---
+import type { Locale } from '../i18n/utils';
+import { useTranslations, localizedPath } from '../i18n/utils';
+import Logo from './Logo.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const { t } = useTranslations(locale);
+const year = 2026;
+
+const links = [
+  { key: 'home', path: '/' },
+  { key: 'about', path: '/about' },
+  { key: 'products', path: '/products' },
+  { key: 'contact', path: '/contact' },
+];
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="footer-brand" href={localizedPath(locale, '/')} aria-label={t('brandFull')}>
+          <Logo light />
+        </a>
+        <p class="footer-tagline">{t('footer.tagline')}</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>{t('footer.navTitle')}</h4>
+        {links.map((l) => (
+          <a href={localizedPath(locale, l.path)}>{t(`nav.${l.key}`)}</a>
+        ))}
+      </div>
+
+      <div class="footer-col">
+        <h4>{t('footer.contactTitle')}</h4>
+        <span class="line">{t('footer.address')}</span>
+        <a href="mailto:info@miu.mn">info@miu.mn</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {year} MIU LLC. {t('footer.rights')}</span>
+      <span>{t('footer.regTitle')}</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,67 @@
+---
+// "Member logos" pattern (BC Mongolia template): a clean grid of partner
+// brand names with a "See all" link into the full Products & Brands page.
+import { getDict, localizedPath } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const dict = getDict(locale);
+const h = dict.home;
+const brands = dict.products.brands;
+const other = dict.products.brandsOther;
+---
+
+<section style="background: var(--bg);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">{h.brandShowcaseEyebrow}</span>
+      <h2 class="h-section">{h.brandShowcaseTitle}</h2>
+    </div>
+
+    <div class="brand-grid" id="brandGrid">
+      {brands.map((b) => (
+        <div class="brand-tile motion-init">
+          <div class="name"><span class="brand-led" aria-hidden="true"></span>{b.name}</div>
+          <div class="country">{b.country}</div>
+        </div>
+      ))}
+      {other.map((name: string) => (
+        <div class="brand-tile motion-init">
+          <div class="name"><span class="brand-led" aria-hidden="true"></span>{name}</div>
+        </div>
+      ))}
+    </div>
+
+    <div style="text-align:center; margin-top:36px;">
+      <a class="btn btn-outline" href={localizedPath(locale, '/products')}>{h.brandShowcaseButton} →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const grid = document.getElementById('brandGrid');
+  if (grid) {
+    const tiles = Array.from(grid.querySelectorAll<HTMLElement>('.brand-tile'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      tiles.forEach((tile) => tile.classList.add('motion-in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              tiles.forEach((tile, i) => {
+                (tile as HTMLElement).style.animationDelay = `${i * 0.05}s`;
+                tile.classList.add('motion-in');
+              });
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      io.observe(grid);
+    }
+  }
+</script>

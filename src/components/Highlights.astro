@@ -1,0 +1,31 @@
+---
+// "Latest news" pattern (BC Mongolia template), adapted: MIU has no ongoing
+// news content, so this surfaces real, verifiable facts as highlight cards
+// rather than fabricating dated news posts. Swap in real news later if MIU
+// starts publishing any -- same card layout, image/date optional per card.
+import { getDict } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const dict = getDict(locale);
+const h = dict.home;
+---
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">{h.highlightsEyebrow}</span>
+      <h2 class="h-section">{h.highlightsTitle}</h2>
+    </div>
+
+    <div class="value-grid">
+      {h.highlights.map((item) => (
+        <div class="value-card">
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

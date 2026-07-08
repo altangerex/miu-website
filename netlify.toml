@@ -1,0 +1,19 @@
+# Netlify build & deploy configuration — TEST DEPLOY ONLY.
+# The real production target is datacom.mn/cPanel (see DEPLOY-datacom.md).
+# Netlify does not run PHP: public/contact.php will 404 here, so the
+# contact form will not actually send mail on a Netlify preview.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Root visits go to the default locale (Mongolian). src/pages/index.astro
+# also does an Astro.redirect as a static-HTML fallback for this same path.
+[[redirects]]
+  from = "/"
+  to = "/mn/"
+  status = 302
+  force = false

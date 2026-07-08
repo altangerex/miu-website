@@ -1,0 +1,71 @@
+---
+// "Statistics" pattern (BC Mongolia template): a standalone counter band,
+// separate from the hero. Real MIU numbers (see public/i18n) -- animates
+// once on scroll into view, respects prefers-reduced-motion.
+import { getDict } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const dict = getDict(locale);
+const h = dict.home;
+---
+
+<section style="background: var(--navy-deep);">
+  <div class="wrap">
+    <div class="stat-strip" id="statsCounter" style="margin-top:0;">
+      {h.stats.map((s) => (
+        <div class="stat-cell">
+          <div class="stat-value" data-countup data-target={s.value}>{s.value}</div>
+          <div class="stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCount(el: HTMLElement) {
+    const target = el.dataset.target || '';
+    const match = target.match(/[\d.]+/);
+    if (!match || prefersReducedMotion) return;
+    const numeric = parseFloat(match[0]);
+    const prefix = target.slice(0, match.index);
+    const suffix = target.slice((match.index || 0) + match[0].length);
+    const decimals = match[0].includes('.') ? match[0].split('.')[1].length : 0;
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now: number) {
+      const elapsed = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - elapsed, 3);
+      const value = numeric * eased;
+      el.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
+      if (elapsed < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const strip = document.getElementById('statsCounter');
+  if (strip) {
+    const cells = strip.querySelectorAll<HTMLElement>('[data-countup]');
+    if (prefersReducedMotion) {
+      cells.forEach((c) => (c.textContent = c.dataset.target || c.textContent));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              cells.forEach((c) => animateCount(c));
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      io.observe(strip);
+    }
+  }
+</script>

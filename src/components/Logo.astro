@@ -1,0 +1,16 @@
+---
+// Primary wordmark lockup: Archivo Bold "M" + node-bulb icon (replacing the
+// lowercase "i") + "U". Per Brand Guidelines v1.0 / 02 Logo System.
+import BulbIcon from './BulbIcon.astro';
+
+interface Props {
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+---
+
+<span class="miu-mark" class:list={{ light }} aria-hidden="true">
+  <span class="miu-mark-m">M</span>
+  <BulbIcon light={light} />
+  <span class="miu-mark-u">U</span>
+</span>

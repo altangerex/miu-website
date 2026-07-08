@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations, getDict, localizedPath, localeStaticPaths } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const { t } = useTranslations(locale);
+const dict = getDict(locale);
+const p = dict.products;
+---
+
+<BaseLayout locale={locale} title={t('nav.products')} active="products">
+  <section class="hero hero-page">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">{p.eyebrow}</span>
+      <h1 class="hero-title">{p.heroTitle}</h1>
+      <p class="hero-subtitle">{p.heroSubtitle}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="section-head left">
+        <h2 class="h-section">{p.priorityTitle}</h2>
+      </div>
+      <div class="priority-list">
+        {p.priorities.map((item) => (
+          <div class="priority-row">
+            <div class="priority-order">{item.order}</div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              {item.brands.length > 0 && (
+                <div class="brand-chip-row">
+                  {item.brands.map((b: string) => <span class="brand-chip">{b}</span>)}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{p.brandsTitle}</span>
+        <h2 class="h-section">{p.brandsLeadTitle}</h2>
+      </div>
+      <div class="brand-grid">
+        {p.brands.map((b) => (
+          <div class="brand-tile">
+            <div class="name">{b.name}</div>
+            <div class="country">{b.country}</div>
+            <div class="focus">{b.focus}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: 40px; text-align:center;">
+        <span class="eyebrow">{p.brandsOtherTitle}</span>
+        <div class="brand-chip-row" style="justify-content:center; margin-top:16px;">
+          {p.brandsOther.map((name: string) => <span class="brand-chip">{name}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="principle-band">
+        <div>
+          <h2>{p.principleTitle}</h2>
+          <p>{p.principleText}</p>
+        </div>
+        <div style="text-align: left;">
+          <p style="font-size: 15px; color: rgba(255,255,255,.8); margin: 0 0 18px;">{p.ctaTitle}</p>
+          <a class="btn btn-primary" href={localizedPath(locale, '/contact')}>{p.ctaButton}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

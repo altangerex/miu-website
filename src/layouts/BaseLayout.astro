@@ -1,0 +1,62 @@
+---
+import type { Locale } from '../i18n/utils';
+import { useTranslations, swapLocaleInPath } from '../i18n/utils';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../../public/styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  active?: string;
+}
+const { locale, title, description, active } = Astro.props;
+const { t } = useTranslations(locale);
+
+const pathname = Astro.url.pathname;
+const mnHref = new URL(swapLocaleInPath(pathname, 'mn'), Astro.site).href;
+const enHref = new URL(swapLocaleInPath(pathname, 'en'), Astro.site).href;
+const canonical = new URL(pathname, Astro.site).href;
+const desc = description ?? t('tagline');
+const fullTitle = `${title} · ${t('brandShort')}`;
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang="mn" href={mnHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={mnHref} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:locale" content={locale === 'mn' ? 'mn_MN' : 'en_US'} />
+    <meta property="og:url" content={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('skipToContent')}</a>
+    <div class="page">
+      <Header locale={locale} active={active} />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer locale={locale} />
+    </div>
+  </body>
+</html>

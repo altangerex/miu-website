@@ -1,0 +1,210 @@
+---
+// Signature interaction: a 3-stage guided-selling tool that produces a real
+// usable artifact (a printable Needs Brief + a prefilled contact handoff)
+// instead of a personalization toy -- MIU's answer to a product configurator
+// for a distributor that has no single SKU to configure.
+import { useTranslations, getDict, localizedPath } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props as Props;
+const { t } = useTranslations(locale);
+const dict = getDict(locale);
+const ex = dict.home.explorer;
+const contactPath = localizedPath(locale, '/contact');
+---
+
+<section class="explorer" id="explorer">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">{ex.eyebrow}</span>
+      <h2 class="h-section">{ex.title}</h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto;">{ex.subtitle}</p>
+    </div>
+
+    <div class="explorer-shell">
+      <div class="explorer-steps">
+        <div class="explorer-step-label active" data-step-label="1">{ex.stage1Label}</div>
+        <div class="explorer-step-label" data-step-label="2">{ex.stage2Label}</div>
+        <div class="explorer-step-label" data-step-label="3">{ex.stage3Label}</div>
+      </div>
+
+      <div class="explorer-stage active" data-stage="1">
+        <div class="tier-grid">
+          {ex.tiers.map((tier) => (
+            <button type="button" class="tier-card" data-tier={tier.key}>
+              <h3>{tier.title}</h3>
+              <div class="brands">{tier.brands}</div>
+              <ul>
+                {tier.useCases.map((u: string) => <li>{u}</li>)}
+              </ul>
+              <div class="tier-gauge">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.4" />
+                  <path d="M7.5 4V7.5L10 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                </svg>
+                {tier.gaugeNote}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="explorer-stage" data-stage="2">
+        <div class="stage-chip-grid">
+          {ex.stages.map((stage) => (
+            <button type="button" class="stage-chip" data-stage-key={stage.key}>{stage.label}</button>
+          ))}
+        </div>
+        <div class="explorer-nav">
+          <button type="button" class="explorer-restart" data-back="1">← {ex.stage1Label}</button>
+        </div>
+      </div>
+
+      <div class="explorer-stage" data-stage="3">
+        <div class="brief-card brief-print">
+          <div class="brief-row"><span class="k">{ex.summary.tierLabel}</span><span class="v" id="briefTier"></span></div>
+          <div class="brief-row"><span class="k">{ex.summary.stageLabel}</span><span class="v" id="briefStage"></span></div>
+          <div class="brief-row"><span class="k">{ex.summary.brandsLabel}</span><span class="v" id="briefBrands"></span></div>
+          <div class="brief-row"><span class="k">{ex.summary.useCaseLabel}</span><span class="v" id="briefUseCase"></span></div>
+          <div class="brief-cta" id="briefCta"></div>
+        </div>
+        <p class="explorer-disclaimer">{ex.disclaimer}</p>
+        <div class="brief-actions">
+          <button type="button" class="btn btn-primary" id="printBrief">{ex.printBtn}</button>
+          <a class="btn btn-outline" id="emailBrief" href="#">{ex.emailBtn}</a>
+          <a class="btn btn-outline" id="continueContact" href={contactPath}>{ex.contactBtn}</a>
+        </div>
+        <div class="explorer-nav">
+          <button type="button" class="explorer-restart" data-back="2">← {ex.stage2Label}</button>
+          <button type="button" class="explorer-restart" id="restartExplorer">{ex.startOver}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{
+  tiers: ex.tiers,
+  stages: ex.stages,
+  summary: ex.summary,
+  emailAddress: 'info@miu.mn',
+  emailSubjectPrefix: locale === 'mn' ? 'Чадавхын хураангуй' : 'Capability brief',
+}}>
+  const TIER_EVENT = 'miu:tier';
+  const STORAGE_KEY = 'miu_explorer';
+
+  const root = document.getElementById('explorer');
+  if (root) {
+    const state = { tier: null, stage: null };
+    const stepLabels = Array.from(root.querySelectorAll('[data-step-label]'));
+    const stagesEl = Array.from(root.querySelectorAll('.explorer-stage'));
+    const tierCards = Array.from(root.querySelectorAll('.tier-card'));
+    const stageChips = Array.from(root.querySelectorAll('.stage-chip'));
+
+    function goToStage(n) {
+      stagesEl.forEach((el) => el.classList.toggle('active', Number(el.dataset.stage) === n));
+      stepLabels.forEach((el) => {
+        const step = Number(el.dataset.stepLabel);
+        el.classList.toggle('active', step === n);
+        el.classList.toggle('done', step < n);
+      });
+      if (n === 3) populateBrief();
+    }
+
+    function findTier(key) { return tiers.find((t) => t.key === key); }
+    function findStage(key) { return stages.find((s) => s.key === key); }
+
+    function populateBrief() {
+      const tier = findTier(state.tier);
+      const stage = findStage(state.stage);
+      if (!tier || !stage) return;
+      const brand = (tier.brands.split(' · ')[0] || tier.brands).replace(/,.*/, '');
+      const cta = stage.cta.replace('{brand}', brand);
+
+      const tierEl = document.getElementById('briefTier');
+      const stageEl = document.getElementById('briefStage');
+      const brandsEl = document.getElementById('briefBrands');
+      const useCaseEl = document.getElementById('briefUseCase');
+      const ctaEl = document.getElementById('briefCta');
+      if (tierEl) tierEl.textContent = tier.title;
+      if (stageEl) stageEl.textContent = stage.label;
+      if (brandsEl) brandsEl.textContent = tier.brands;
+      if (useCaseEl) useCaseEl.textContent = tier.useCases[0] || '';
+      if (ctaEl) ctaEl.textContent = cta;
+
+      const emailBtn = document.getElementById('emailBrief');
+      if (emailBtn) {
+        const body = [
+          `${summary.tierLabel}: ${tier.title}`,
+          `${summary.stageLabel}: ${stage.label}`,
+          `${summary.brandsLabel}: ${tier.brands}`,
+          `${summary.useCaseLabel}: ${tier.useCases[0] || ''}`,
+          '',
+          cta,
+        ].join('\n');
+        emailBtn.href = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubjectPrefix + ' — ' + tier.title)}&body=${encodeURIComponent(body)}`;
+      }
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ tier: tier.key, tierTitle: tier.title, stage: stage.key, stageLabel: stage.label, cta }));
+      } catch (err) { /* localStorage unavailable (private mode) -- non-fatal */ }
+    }
+
+    tierCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        tierCards.forEach((c) => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.tier = card.dataset.tier;
+        document.dispatchEvent(new CustomEvent(TIER_EVENT, { detail: state.tier }));
+        goToStage(2);
+      });
+    });
+
+    stageChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        stageChips.forEach((c) => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        state.stage = chip.dataset.stageKey;
+        goToStage(3);
+      });
+    });
+
+    root.querySelectorAll('[data-back]').forEach((btn) => {
+      btn.addEventListener('click', () => goToStage(Number(btn.dataset.back)));
+    });
+
+    const restartBtn = document.getElementById('restartExplorer');
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => {
+        state.tier = null;
+        state.stage = null;
+        tierCards.forEach((c) => c.classList.remove('selected'));
+        stageChips.forEach((c) => c.classList.remove('selected'));
+        document.dispatchEvent(new CustomEvent(TIER_EVENT, { detail: null }));
+        goToStage(1);
+      });
+    }
+
+    const printBtn = document.getElementById('printBrief');
+    if (printBtn) printBtn.addEventListener('click', () => window.print());
+
+    // Stay in sync if a tier is selected via the Network diagram below.
+    document.addEventListener(TIER_EVENT, (e) => {
+      const key = e.detail;
+      if (!key || key === state.tier) return;
+      const card = tierCards.find((c) => c.dataset.tier === key);
+      if (card) card.click();
+    });
+
+    stepLabels.forEach((el) => {
+      el.addEventListener('click', () => {
+        const step = Number(el.dataset.stepLabel);
+        if (step === 1 || (step === 2 && state.tier) || (step === 3 && state.tier && state.stage)) {
+          goToStage(step);
+        }
+      });
+      el.style.cursor = 'pointer';
+    });
+  }
+</script>
