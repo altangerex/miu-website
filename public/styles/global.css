@@ -1,6 +1,7 @@
 /* ============================================================
    MIU — Mongolian Innovation Unity
-   Official brand palette (Brand Guidelines v1.0, 2026):
+   Official brand palette (Brand Guidelines v1.0) + MIU Design
+   System v1.0 (component-level UI kit, imported 2026-07-08).
    Ink Navy #16232E · Bronze #B8863B · Gold #C9A227 ·
    Slate #6B7885 · Mist #ECEEF0 · Paper #FFFFFF.
    Variable NAMES below are kept from the original build to avoid
@@ -12,17 +13,37 @@
   --navy: #26364A;      /* lighter navy tint — borders, secondary UI on light bg */
   --navy-2: #384D66;    /* lightest navy tint — gradients, hover states */
   --ink: #16232E;       /* body text = Ink Navy (13.6:1 on Paper, WCAG AAA) */
+  --steel: #4A5763;     /* Steel — lead paragraph / emphasis body text (design system) */
   --muted: #6B7885;     /* Slate — secondary text */
   --muted-2: #7E8A96;   /* Slate tint — tertiary text */
-  --muted-3: #98A3AC;   /* Slate tint — quaternary / placeholder text */
+  --muted-3: #9AA6AF;   /* Silver — quaternary / placeholder text (design system) */
   --bg: #ECEEF0;        /* Mist — panel backgrounds */
+  --cloud: #F5F6F7;     /* Cloud — subtle fills inside Mist panels, table headers (design system) */
   --surface: #FFFFFF;   /* Paper — base surface */
   --border: #DDE2E5;    /* Mist-derived hairline border */
   --border-soft: #ECEEF0; /* Mist */
-  --copper: #B8863B;    /* Bronze — accent: rules, labels, emphasis, primary CTA */
-  --copper-dark: #96692A; /* Bronze, darker — hover/pressed */
+  --copper: #B8863B;    /* Bronze — accent: rules, labels, emphasis */
+  --copper-dark: #96692A; /* Bronze, darker — hover/pressed (legacy, superseded by --accent-active for buttons) */
   --bronze-tint: #F6EFE1; /* pale Bronze tint — selected/hover backgrounds */
   --gold: #C9A227;      /* Gold — node highlight, on-navy accents */
+
+  /* Button system (design system v1.0): Primary = Navy, Accent = Bronze */
+  --primary: #16232E;        --primary-hover: #233542;   --primary-active: #0E181F;   --primary-disabled: #C6CCD1;
+  --accent: #B8863B;         --accent-hover: #A5762F;    --accent-active: #8F6526;    --accent-disabled: #E4D3B5;
+  --secondary-hover: #F5F6F7; --secondary-active: #ECEEF0; --secondary-disabled: #C6CCD1; --secondary-disabled-border: #E1E5E8;
+  --ghost-hover: #F0F2F3;    --ghost-active: #E4E7EA;
+
+  /* Semantic status (design system v1.0) */
+  --success: #1E7A4D;   --success-bg: #F3F8F4; --success-border: #DCEBDF; --success-text: #1E5E3C;
+  --warning: #B8863B;   --warning-bg: #FBF6EC; --warning-border: #EEDFC4; --warning-text: #8A6320;
+  --danger:  #C0453A;   --danger-bg:  #FBF4F3; --danger-border:  #EDD5D2; --danger-text:  #8A3A32;
+  --info:    #16232E;
+
+  /* Elevation (design system v1.0) */
+  --shadow-1: 0 1px 2px rgba(20,35,46,.06), 0 1px 3px rgba(20,35,46,.08);
+  --shadow-2: 0 4px 10px rgba(20,35,46,.08), 0 2px 4px rgba(20,35,46,.06);
+  --shadow-3: 0 2px 6px rgba(20,35,46,.08), 0 20px 50px rgba(20,35,46,.14);
+
   --maxw: 1200px;
   --pad-x: 32px;
 }
@@ -82,19 +103,42 @@ section { padding: 88px 0; }
 .section-head.left { margin: 0 0 40px; text-align: left; }
 
 /* ---- buttons ---- */
+/* Button system — MIU Design System v1.0. Primary = Navy (default action),
+   Accent = Bronze (reserved for the single highest-emphasis CTA per view —
+   see component notes at each usage site for why a given button is one or
+   the other), Secondary = outline, Ghost = transparent/on-dark. */
 .btn {
   display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
-  border-radius: 10px; font-weight: 700; font-size: 15px; border: 1px solid transparent;
-  text-decoration: none; transition: box-shadow .2s, transform .2s, background .2s, color .2s;
+  border-radius: 8px; font-family: 'Archivo', system-ui, sans-serif; font-weight: 600; font-size: 15px;
+  border: 1px solid transparent; text-decoration: none;
+  transition: box-shadow .15s, transform .08s, background .15s, color .15s, border-color .15s;
   padding: 13px 22px;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn-primary { background: var(--copper); color: #fff; box-shadow: 0 8px 20px rgba(184,134,59,.28); }
-.btn-primary:hover { background: var(--copper-dark); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled, .btn[aria-disabled="true"] { cursor: not-allowed; }
+
+.btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow-1); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:active { background: var(--primary-active); }
+.btn-primary:disabled { background: var(--primary-disabled); box-shadow: none; }
+
+.btn-accent { background: var(--accent); color: #fff; box-shadow: 0 8px 20px rgba(184,134,59,.28); }
+.btn-accent:hover { background: var(--accent-hover); }
+.btn-accent:active { background: var(--accent-active); }
+.btn-accent:disabled { background: var(--accent-disabled); box-shadow: none; }
+
 .btn-ghost-light { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.28); }
 .btn-ghost-light:hover { background: rgba(255,255,255,.16); }
+
 .btn-outline { background: transparent; color: var(--navy-deep); border-color: var(--border); }
-.btn-outline:hover { border-color: var(--navy-2); background: var(--bg); }
+.btn-outline:hover { border-color: var(--navy-2); background: var(--secondary-hover); }
+.btn-outline:active { background: var(--secondary-active); }
+.btn-outline:disabled { color: var(--secondary-disabled); border-color: var(--secondary-disabled-border); }
+
+.btn-ghost { background: transparent; color: var(--navy-deep); border-color: transparent; }
+.btn-ghost:hover { background: var(--ghost-hover); }
+.btn-ghost:active { background: var(--ghost-active); }
+.btn-ghost:disabled { color: var(--secondary-disabled); }
 
 /* ============================================================
    Header
@@ -223,8 +267,11 @@ section { padding: 88px 0; }
 .brand-grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
 @media (min-width: 640px) { .brand-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 960px) { .brand-grid { grid-template-columns: repeat(5, 1fr); } }
+/* 8-item showcase (Home) divides evenly into 4 columns; the 5-col base
+   rule above is correct for Products' 5-brand grid, so this is scoped */
+@media (min-width: 960px) { .brand-grid.showcase-grid { grid-template-columns: repeat(4, 1fr); } }
 .brand-tile {
-  background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
   padding: 22px 18px; text-align: center;
 }
 .brand-tile .name { font-family: 'Archivo', system-ui, sans-serif; font-weight: 600; font-size: 15.5px; color: var(--navy-deep); }
@@ -272,7 +319,10 @@ section { padding: 88px 0; }
 .value-grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
 @media (min-width: 640px) { .value-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .value-grid { grid-template-columns: repeat(5, 1fr); } }
-.value-card { background: var(--bg); border-radius: 14px; padding: 22px 20px; border: 1px solid var(--border-soft); }
+/* Home's 4-item highlights grid; the 5-col rule above is for About's
+   5 core values, so this is scoped to not disturb that layout */
+@media (min-width: 1000px) { .value-grid.highlights-grid { grid-template-columns: repeat(4, 1fr); } }
+.value-card { background: var(--bg); border-radius: 10px; padding: 22px 20px; border: 1px solid var(--border-soft); }
 .value-card h3 { font-family: 'Archivo', system-ui, sans-serif; font-size: 15.5px; font-weight: 600; color: var(--navy-deep); margin: 0 0 8px; }
 .value-card p { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin: 0; }
 
@@ -343,7 +393,8 @@ section { padding: 88px 0; }
 .contact-grid { display: grid; gap: 44px; grid-template-columns: 1fr; }
 @media (min-width: 900px) { .contact-grid { grid-template-columns: .8fr 1.2fr; } }
 .contact-info-card {
-  background: var(--navy-deep); border-radius: 18px; padding: 34px; color: #fff; height: fit-content;
+  background: var(--navy-deep); border-radius: 10px; padding: 34px; color: #fff; height: fit-content;
+  box-shadow: var(--shadow-1);
 }
 .contact-info-card h3 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #C9A227; margin: 0 0 22px; }
 .contact-row { display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.12); }
@@ -355,7 +406,7 @@ section { padding: 88px 0; }
 .contact-row .k { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.5); }
 .contact-row .v { font-size: 15px; font-weight: 600; color: #fff; margin-top: 3px; line-height: 1.5; }
 
-.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 34px; }
+.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 34px; box-shadow: var(--shadow-1); }
 .form-card h3 { font-family: 'Archivo', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: var(--navy-deep); margin: 0 0 22px; }
 .form-grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
 @media (min-width: 620px) { .form-grid.two { grid-template-columns: 1fr 1fr; } }
@@ -371,10 +422,17 @@ section { padding: 88px 0; }
 .field textarea { resize: vertical; min-height: 120px; }
 .form-actions { margin-top: 6px; display: flex; align-items: center; gap: 16px; }
 .form-note { font-size: 13px; color: var(--muted-3); }
-.form-status { font-size: 14px; font-weight: 700; padding: 12px 16px; border-radius: 10px; margin-top: 6px; }
-.form-status.ok { background: var(--bronze-tint); color: var(--ink); }
-.form-status.err { background: rgba(150,105,42,.12); color: var(--ink); }
-.form-status[hidden] { display: none; }
+/* Alerts — MIU Design System v1.0: icon + tinted bg + colored left border */
+.alert {
+  display: flex; align-items: flex-start; gap: 12px;
+  border-radius: 8px; padding: 14px 16px; margin-top: 6px;
+  font-size: 13px; line-height: 1.5; font-weight: 600;
+}
+.alert svg { flex: none; margin-top: 1px; }
+.alert[hidden] { display: none; }
+.alert-success { background: var(--success-bg); border: 1px solid var(--success-border); border-left: 3px solid var(--success); color: var(--success-text); }
+.alert-warning { background: var(--warning-bg); border: 1px solid var(--warning-border); border-left: 3px solid var(--warning); color: var(--warning-text); }
+.alert-danger  { background: var(--danger-bg);  border: 1px solid var(--danger-border);  border-left: 3px solid var(--danger);  color: var(--danger-text); }
 
 /* ============================================================
    Footer
@@ -426,7 +484,7 @@ section { padding: 88px 0; }
 /* ---- Capability Explorer ---- */
 .explorer-shell {
   border: 1px solid var(--border); border-radius: 20px; background: var(--surface);
-  overflow: hidden; box-shadow: 0 20px 60px rgba(11,31,48,.08);
+  overflow: hidden; box-shadow: var(--shadow-3);
 }
 .explorer-steps { display: flex; border-bottom: 1px solid var(--border-soft); }
 .explorer-step-label {
@@ -447,9 +505,9 @@ section { padding: 88px 0; }
 .tier-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
 @media (min-width: 780px) { .tier-grid { grid-template-columns: repeat(3, 1fr); } }
 .tier-card {
-  text-align: left; border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 20px;
+  text-align: left; border: 1.5px solid var(--border); border-radius: 10px; padding: 22px 20px;
   background: var(--surface); cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s;
-  font: inherit; width: 100%;
+  font: inherit; width: 100%; box-shadow: var(--shadow-1);
 }
 .tier-card:hover, .tier-card:focus-visible { border-color: var(--navy-2); box-shadow: 0 10px 26px rgba(11,31,48,.1); transform: translateY(-2px); }
 .tier-card.selected { border-color: var(--copper); background: linear-gradient(180deg, #fff, #F6EFE1); box-shadow: 0 10px 26px rgba(184,134,59,.16); }
@@ -471,7 +529,7 @@ section { padding: 88px 0; }
 .stage-chip:hover, .stage-chip:focus-visible { border-color: var(--navy-2); }
 .stage-chip.selected { border-color: var(--copper); background: #F6EFE1; color: var(--copper-dark); }
 
-.brief-card { border: 1.5px solid var(--border); border-radius: 16px; padding: 28px; background: var(--bg); }
+.brief-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 28px; background: var(--bg); }
 .brief-row { display: flex; gap: 16px; padding: 12px 0; border-top: 1px solid var(--border-soft); flex-wrap: wrap; }
 .brief-row:first-child { border-top: none; }
 .brief-row .k { width: 140px; flex-shrink: 0; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted-3); }

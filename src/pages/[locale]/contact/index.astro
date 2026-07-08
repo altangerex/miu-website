@@ -55,11 +55,18 @@ const nextPath = localizedPath(locale, '/contact');
         <div class="form-card">
           <h3>{c.formTitle}</h3>
 
-          <p class="form-status ok" id="statusOk" hidden>{c.formSuccess}</p>
-          <p class="form-status err" id="statusErr" hidden>{c.formError}</p>
-          <p class="form-status ok" id="prefillNote" hidden>
-            {c.prefillNote} <button type="button" id="prefillClear" style="background:none;border:none;text-decoration:underline;color:inherit;cursor:pointer;font:inherit;padding:0;margin-left:8px;">{c.prefillClear}</button>
-          </p>
+          <div class="alert alert-success" id="statusOk" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+            <div>{c.formSuccess}</div>
+          </div>
+          <div class="alert alert-danger" id="statusErr" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div>{c.formError}</div>
+          </div>
+          <div class="alert alert-success" id="prefillNote" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+            <div>{c.prefillNote} <button type="button" id="prefillClear" style="background:none;border:none;text-decoration:underline;color:inherit;cursor:pointer;font:inherit;padding:0;">{c.prefillClear}</button></div>
+          </div>
 
           <form method="POST" action="/contact.php">
             <input type="hidden" name="_next" value={nextPath} />

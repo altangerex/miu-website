@@ -12,14 +12,14 @@ const brands = dict.products.brands;
 const other = dict.products.brandsOther;
 ---
 
-<section style="background: var(--bg);">
+<section>
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">{h.brandShowcaseEyebrow}</span>
       <h2 class="h-section">{h.brandShowcaseTitle}</h2>
     </div>
 
-    <div class="brand-grid" id="brandGrid">
+    <div class="brand-grid showcase-grid" id="brandGrid">
       {brands.map((b) => (
         <div class="brand-tile motion-init">
           <div class="name"><span class="brand-led" aria-hidden="true"></span>{b.name}</div>

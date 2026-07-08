@@ -12,14 +12,14 @@ const dict = getDict(locale);
 const h = dict.home;
 ---
 
-<section>
+<section style="background: var(--bg);">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">{h.highlightsEyebrow}</span>
       <h2 class="h-section">{h.highlightsTitle}</h2>
     </div>
 
-    <div class="value-grid">
+    <div class="value-grid highlights-grid">
       {h.highlights.map((item) => (
         <div class="value-card">
           <h3>{item.title}</h3>

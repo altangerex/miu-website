@@ -48,9 +48,9 @@
     "highlightsTitle": "From our story",
     "highlights": [
       { "title": "Founded in 2012", "desc": "14 years serving Mongolia's mining and industrial sector." },
-      { "title": "Operating through tenders and commercial trade", "desc": "Supplying Mongolia's mining sector through both public tenders and direct commercial trade." },
-      { "title": "Partner to 5 leading nations' brands", "desc": "Official supplier of Siemens, ABB, Schneider Electric, Yokogawa, and Fluke." },
-      { "title": "Supplying Erdenet Mining Corporation", "desc": "A real relationship with Mongolia's largest copper mine." }
+      { "title": "Two supply channels", "desc": "Supplying Mongolia's mining sector through both public tenders and direct commercial trade." },
+      { "title": "Partner to 5 global brands", "desc": "Official supplier of Siemens, ABB, Schneider Electric, Yokogawa, and Fluke." },
+      { "title": "Supplying Erdenet Mining", "desc": "A real relationship with Mongolia's largest copper mine." }
     ],
 
     "statsTitle": "By the numbers",
