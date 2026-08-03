@@ -19,6 +19,26 @@ const enHref = new URL(swapLocaleInPath(pathname, 'en'), Astro.site).href;
 const canonical = new URL(pathname, Astro.site).href;
 const desc = description ?? t('tagline');
 const fullTitle = `${title} · ${t('brandShort')}`;
+const ogImage = new URL('/images/hero-openpit-mine.jpg', Astro.site).href;
+
+// Organization structured data -- only facts already published elsewhere on
+// this site (footer address/reg info, About page origin date).
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: t('brandFull'),
+  url: Astro.site?.href,
+  logo: new URL('/favicon.svg', Astro.site).href,
+  foundingDate: '2012-02-11',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: t('footer.address'),
+    addressLocality: 'Ulaanbaatar',
+    addressCountry: 'MN',
+  },
+  email: 'info@miu.mn',
+  description: t('tagline'),
+};
 ---
 
 <!DOCTYPE html>
@@ -39,6 +59,15 @@ const fullTitle = `${title} · ${t('brandShort')}`;
     <meta property="og:description" content={desc} />
     <meta property="og:locale" content={locale === 'mn' ? 'mn_MN' : 'en_US'} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={t('brandFull')} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

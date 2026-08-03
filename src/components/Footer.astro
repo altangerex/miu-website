@@ -8,7 +8,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 const { t } = useTranslations(locale);
-const year = 2026;
+const year = new Date().getFullYear();
 const home = localizedPath(locale, '/');
 
 const links = [
@@ -45,7 +45,7 @@ const links = [
 
     <div class="footer-bottom">
       <span>&copy; {year} MIU LLC. {t('footer.rights')}</span>
-      <span>{t('footer.regTitle')}</span>
+      <span>{t('footer.regTitle')} · {t('footer.regNumber')}</span>
     </div>
   </div>
 </footer>

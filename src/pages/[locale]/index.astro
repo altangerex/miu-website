@@ -29,11 +29,15 @@ const h = dict.home;
 const a = dict.about;
 const p = dict.products;
 const c = dict.contact;
+const tr = dict.trackRecord;
+const wm = dict.whyMiu;
+const pc = dict.process;
+const qa = dict.quality;
 const ex = dict.home.explorer;
 const nextPath = localizedPath(locale, '/');
 ---
 
-<BaseLayout locale={locale} title={t('nav.home')}>
+<BaseLayout locale={locale} title={t('nav.home')} description={h.seoDescription}>
   <Hero locale={locale} />
 
   <StatsCounter locale={locale} />
@@ -224,6 +228,83 @@ const nextPath = localizedPath(locale, '/');
         <div class="brand-chip-row" style="justify-content:center; margin-top:16px;">
           {p.brandsOther.map((name: string) => <span class="brand-chip">{name}</span>)}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRACK RECORD ===================== -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{tr.kicker}</span>
+        <h2 class="h-section">{tr.title}</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">{tr.intro}</p>
+      </div>
+      <div class="track-grid">
+        {tr.items.map((item) => (
+          <div class="track-item"><span class="dot"></span>{item.text}</div>
+        ))}
+      </div>
+      <p class="lead" style="max-width:100%; text-align:center; margin-top:28px;">{tr.closing}</p>
+    </div>
+  </section>
+
+  <!-- ===================== WHY MIU ===================== -->
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{wm.kicker}</span>
+        <h2 class="h-section">{wm.title}</h2>
+      </div>
+      <div class="value-grid highlights-grid">
+        {wm.items.map((item) => (
+          <div class="value-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW WE WORK ===================== -->
+  <section>
+    <div class="wrap-narrow">
+      <div class="section-head left">
+        <span class="eyebrow">{pc.kicker}</span>
+        <h2 class="h-section">{pc.title}</h2>
+      </div>
+      <div class="priority-list">
+        {pc.items.map((item, i) => (
+          <div class="priority-row">
+            <div class="priority-order">{String(i + 1).padStart(2, '0')}</div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== QUALITY & ASSURANCE ===================== -->
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">{qa.kicker}</span>
+        <h2 class="h-section">{qa.title}</h2>
+      </div>
+      <div class="principle-list">
+        {qa.items.map((item, i) => (
+          <div class="principle-row">
+            <span class="principle-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>

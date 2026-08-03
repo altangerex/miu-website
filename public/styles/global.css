@@ -288,6 +288,18 @@ section { padding: 88px 0; }
 }
 
 /* ============================================================
+   Track record checklist
+   ============================================================ */
+.track-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 780px) { .track-grid { grid-template-columns: repeat(2, 1fr); } }
+.track-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; font-size: 14px; color: var(--ink); line-height: 1.55;
+}
+.track-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--copper); flex-shrink: 0; margin-top: 6px; }
+
+/* ============================================================
    Clients section
    ============================================================ */
 .client-panel {

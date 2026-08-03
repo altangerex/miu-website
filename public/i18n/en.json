@@ -19,11 +19,13 @@
     "contactTitle": "Contact",
     "address": "Room 5006, Galaxy Tower, 15th khoroo, Khan-Uul district, Ulaanbaatar, Mongolia",
     "rights": "All rights reserved.",
-    "regTitle": "Founded 2012.02.11 · 14 years of experience"
+    "regTitle": "Founded 2012.02.11 · 14 years of experience",
+    "regNumber": "State registration No. 5563909"
   },
 
   "home": {
     "eyebrow": "MIU — Mongolian Innovation Unity",
+    "seoDescription": "MIU LLC — official distributor of industrial automation, instrumentation, electrical and mechanical equipment in Mongolia since 2012. Authorized partner of Siemens, ABB, Schneider Electric, Yokogawa, Fluke and JUMO.",
     "heroTitle": "Leading global technology brands, delivered to Mongolia's mining and industrial sector",
     "heroSubtitle": "We supply original-quality measuring instruments, electrical and mechanical equipment from world-leading brands — Siemens, ABB, Schneider Electric, Yokogawa, Fluke — for both tenders and commercial trade.",
     "heroLine1": "Some distributors sell what's already in the warehouse.",
@@ -57,39 +59,16 @@
     "stats": [
       { "value": "14+", "label": "years of experience (since 2012)" },
       { "value": "8", "label": "global partner brands" },
-      { "value": "3", "label": "supply tiers" },
+      { "value": "14", "label": "contracts delivered (2025–2026)" },
       { "value": "100%", "label": "original-quality products" }
-    ],
-
-    "pillarsTitle": "What we supply",
-    "pillarsSubtitle": "Our product supply priorities",
-    "pillars": [
-      {
-        "order": "01",
-        "title": "Sensors & measuring instruments",
-        "desc": "Sensors, meters and testers for industrial measurement and automation.",
-        "brands": "Yokogawa · JUMO · Fluke"
-      },
-      {
-        "order": "02",
-        "title": "Electrical equipment",
-        "desc": "Electrical equipment for power management and industrial automation.",
-        "brands": "Siemens · ABB · Schneider Electric"
-      },
-      {
-        "order": "03",
-        "title": "Mechanical equipment",
-        "desc": "Reducers and industrial line equipment and spare parts.",
-        "brands": "Industrial line equipment"
-      }
     ],
 
     "brandsTitle": "Global partner brands",
     "brandsSubtitle": "Original-quality products, reliably sourced from official channels",
 
     "clientsTitle": "Clients & target markets",
-    "currentClientsLabel": "Current client",
-    "currentClients": ["Erdenet Mining Corporation"],
+    "currentClientsLabel": "Current clients",
+    "currentClients": ["Erdenet Mining Corporation", "Passenger Transport Center (Ulaanbaatar)", "Thermal Power Plant No. 4 (CHP-4)"],
     "targetMarketLabel": "Target market — Mongolia's strategic deposits",
     "targetMarket": ["Oyu Tolgoi", "Erdenes Tavan Tolgoi"],
     "clientsNote": "Mongolia's strategically important large deposits represent a broad market with steady, sustained demand.",
@@ -97,8 +76,6 @@
     "ctaBannerTitle": "Have a tender or supply need?",
     "ctaBannerSubtitle": "We work with the documentation and manufacturer authorization tenders require, sourced from official channels.",
     "ctaBannerButton": "Get in touch",
-
-    "trustLabels": ["years of experience", "leading brands", "supply tiers", "2025 sales revenue (₮)"],
 
     "explorer": {
       "eyebrow": "Capability Explorer",
@@ -285,5 +262,56 @@
     "formError": "Sorry, something went wrong. Please try again or email us directly.",
     "prefillNote": "We've pre-filled the tier and stage you selected below.",
     "prefillClear": "Clear"
+  },
+
+  "trackRecord": {
+    "kicker": "Track record",
+    "title": "Deliveries that earn repeat trust, year after year.",
+    "intro": "In 2025–2026, MIU competed in open tenders held by organizations in Mongolia's mining, energy and public-transport sectors, and successfully delivered 14 contracts across the following categories.",
+    "items": [
+      { "text": "Instrumentation and temperature-sensor supply (JUMO) — two consecutive years" },
+      { "text": "KIP instrumentation and automation equipment supply" },
+      { "text": "Spare parts for steel grinding-ball production equipment" },
+      { "text": "Foundry mould equipment spare parts (FAT)" },
+      { "text": "Electrical components: magnetic contactors, relays, contact blocks (Schneider Electric)" },
+      { "text": "Pneumatic system fittings and actuators (FESTO)" },
+      { "text": "Crane speed limiters" },
+      { "text": "Water-treatment equipment spares and protective cartridges" },
+      { "text": "Industrial batteries and measuring devices" },
+      { "text": "Spare parts and components for Ulaanbaatar's public-transport bus fleet (Yutong · Golden Dragon · County)" }
+    ],
+    "closing": "«Эрдэнэт үйлдвэр» ТӨҮГ and «Зорчигч тээвэр төв» ОНӨААТҮГ have both signed new contracts with MIU in 2025 and 2026 alike — evidence of an ongoing working relationship."
+  },
+
+  "whyMiu": {
+    "kicker": "Why MIU",
+    "title": "A partner that understands what tender evaluation committees require.",
+    "items": [
+      { "title": "Official sourcing", "text": "We supply manufacturer-authorized, origin-certified products, with complete tender-compliant documentation." },
+      { "title": "Tender expertise", "text": "14 years of experience with the procurement procedures and e-tender system requirements of Mongolian state and state-owned enterprises." },
+      { "title": "Logistics & lead time", "text": "International supply networks and customs expertise keep contract deadlines on track." },
+      { "title": "Engineering support", "text": "Beyond supply: technical documentation, installation guidance and warranty service, in Mongolian." }
+    ]
+  },
+
+  "process": {
+    "kicker": "How we work",
+    "title": "From inquiry to handover — a clear, accountable process.",
+    "items": [
+      { "title": "Inquiry & scoping", "text": "We define technical requirements, quantities and timelines together, and respond promptly." },
+      { "title": "Sourcing & quotation", "text": "We obtain an official manufacturer quotation together with origin documents." },
+      { "title": "Delivery", "text": "We manage international freight and customs end-to-end, delivering within the contract deadline." },
+      { "title": "Warranty & support", "text": "We provide continuous support — manufacturer warranty, technical advice and spare-part supply." }
+    ]
+  },
+
+  "quality": {
+    "kicker": "Quality & assurance",
+    "title": "Our reputation is measured by the quality of every product we deliver.",
+    "items": [
+      { "title": "Manufacturer warranty", "text": "Every product we supply carries the manufacturer's official warranty." },
+      { "title": "Complete documentation", "text": "Certificates of origin, conformity declarations and technical passports accompany every delivery." },
+      { "title": "Continuous operation", "text": "Operating continuously since 2012, with repeat contract relationships across Mongolia's major mining, energy and transport enterprises." }
+    ]
   }
 }
