@@ -1,15 +1,18 @@
 ---
-// Home page, restructured to the BC Mongolia (bcmongolia.org) template:
-// Hero banner -> Vision + About CTA -> Partnership CTA -> Brand showcase ->
-// Highlights -> Stats counters -> Client/target-market -> footer.
-// The earlier "Capability Explorer" / "Global Network" interactive build
-// (src/components/CapabilityExplorer.astro, NetworkMap.astro) is not
-// removed, just not used on Home per this revision -- still available to
-// reuse on a future page.
+// Single scrollable page per locale. Nav tabs are in-page anchors
+// (#about / #products / #contact) that smooth-scroll here rather than
+// navigating to separate pages -- see src/components/Header.astro for the
+// anchor links + scroll-spy, and the old about/products/contact routes
+// (now redirect stubs) for backward-compat with any old links.
+//
+// Content merge notes: Home's old "Vision CTA" teaser and the standalone
+// BrandShowcase/Highlights bands are dropped here -- they existed only to
+// entice a click into the separate About/Products pages, which no longer
+// makes sense when that content is a few scrolls away on the same page.
+// BrandShowcase.astro and Highlights.astro are left in the repo, unused,
+// same as CapabilityExplorer/NetworkMap.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
-import BrandShowcase from '../../components/BrandShowcase.astro';
-import Highlights from '../../components/Highlights.astro';
 import StatsCounter from '../../components/StatsCounter.astro';
 import { useTranslations, getDict, localizedPath, localeStaticPaths } from '../../i18n/utils';
 import type { Locale } from '../../i18n/utils';
@@ -24,19 +27,48 @@ const { t } = useTranslations(locale);
 const dict = getDict(locale);
 const h = dict.home;
 const a = dict.about;
+const p = dict.products;
+const c = dict.contact;
+const ex = dict.home.explorer;
+const nextPath = localizedPath(locale, '/');
 ---
 
-<BaseLayout locale={locale} title={t('nav.home')} active="home">
+<BaseLayout locale={locale} title={t('nav.home')}>
   <Hero locale={locale} />
+
+  <StatsCounter locale={locale} />
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{a.eyebrow}</span>
+        <h2 class="h-section">{a.heroTitle}</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">{a.heroSubtitle}</p>
+      </div>
+      <div class="origin-strip" style="justify-content:center;">
+        <div class="origin-item">
+          <div class="k">{a.originFounded}</div>
+          <div class="v">{a.originFoundedValue}</div>
+        </div>
+        <div class="origin-item">
+          <div class="k">{a.originDomain}</div>
+          <div class="v">{a.originDomainValue}</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section>
     <div class="wrap">
-      <div class="vm-grid" style="grid-template-columns: 1fr;">
-        <div class="vm-card vision" style="max-width: 760px; margin: 0 auto; text-align: center;">
-          <span class="eyebrow" style="justify-content:center;">{h.visionCtaEyebrow}</span>
-          <h2 class="h-section" style="margin-top:10px;">{h.visionCtaTitle}</h2>
-          <p class="lead" style="margin-left:auto; margin-right:auto; color: var(--navy-deep); font-weight:600;">{a.vision}</p>
-          <a class="btn btn-primary" style="margin-top:20px;" href={localizedPath(locale, '/about')}>{h.visionCtaButton} →</a>
+      <div class="vm-grid">
+        <div class="vm-card vision">
+          <h3>{a.visionTitle}</h3>
+          <p>{a.vision}</p>
+        </div>
+        <div class="vm-card mission">
+          <h3>{a.missionTitle}</h3>
+          <p>{a.mission}</p>
         </div>
       </div>
     </div>
@@ -44,24 +76,48 @@ const a = dict.about;
 
   <section style="background: var(--bg);">
     <div class="wrap">
-      <div class="cta-banner">
-        <div>
-          <h2>{h.ctaBannerTitle}</h2>
-          <p>{h.ctaBannerSubtitle}</p>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:12px;">
-          <a class="btn btn-primary" href={localizedPath(locale, '/contact')}>{h.ctaBannerButton}</a>
-          <a class="btn btn-outline" style="background:rgba(255,255,255,.9);" href={localizedPath(locale, '/products')}>{h.ctaSecondary} →</a>
-        </div>
+      <div class="section-head">
+        <h2 class="h-section">{a.valuesTitle}</h2>
+      </div>
+      <div class="value-grid">
+        {a.values.map((v) => (
+          <div class="value-card">
+            <h3>{v.title}</h3>
+            <p>{v.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <BrandShowcase locale={locale} />
+  <section>
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">{a.principlesTitle}</span>
+        <h2 class="h-section">{a.principlesSubtitle}</h2>
+      </div>
+      <div class="principle-list">
+        {a.principles.map((pr, i) => (
+          <div class="principle-row">
+            <span class="principle-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{pr.title}</h3>
+              <p>{pr.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <Highlights locale={locale} />
-
-  <StatsCounter locale={locale} />
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="strategic-panel">
+        <span class="eyebrow">{a.strategicTitle}</span>
+        <p style="margin-top: 14px;">{a.strategic}</p>
+      </div>
+    </div>
+  </section>
 
   <section>
     <div class="wrap">
@@ -72,16 +128,16 @@ const a = dict.about;
         <div class="client-col">
           <div class="label">{h.currentClientsLabel}</div>
           <div class="items">
-            {h.currentClients.map((c) => (
-              <div class="client-item"><span class="dot"></span>{c}</div>
+            {h.currentClients.map((cl) => (
+              <div class="client-item"><span class="dot"></span>{cl}</div>
             ))}
           </div>
         </div>
         <div class="client-col">
           <div class="label">{h.targetMarketLabel}</div>
           <div class="items">
-            {h.targetMarket.map((c) => (
-              <div class="client-item"><span class="dot" style="background:none;border:2px dashed #6B7885;"></span>{c}</div>
+            {h.targetMarket.map((cl) => (
+              <div class="client-item"><span class="dot" style="background:none;border:2px dashed #6B7885;"></span>{cl}</div>
             ))}
           </div>
           <p class="client-note">{h.network.targetTag} — {h.clientsNote}</p>
@@ -89,4 +145,240 @@ const a = dict.about;
       </div>
     </div>
   </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap-narrow">
+      <div class="section-head left">
+        <span class="eyebrow">{a.activitySubtitle}</span>
+        <h2 class="h-section">{a.activityTitle}</h2>
+      </div>
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>{locale === 'mn' ? 'Код' : 'Code'}</th>
+            <th>{locale === 'mn' ? 'Чиглэл' : 'Activity'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {a.activities.map((act) => (
+            <tr>
+              <td class="code">{act.code}</td>
+              <td class="name">{act.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCTS & BRANDS ===================== -->
+  <section id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{p.eyebrow}</span>
+        <h2 class="h-section">{p.heroTitle}</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">{p.heroSubtitle}</p>
+      </div>
+    </div>
+    <div class="wrap-narrow">
+      <div class="section-head left">
+        <h2 class="h-section">{p.priorityTitle}</h2>
+      </div>
+      <div class="priority-list">
+        {p.priorities.map((item) => (
+          <div class="priority-row">
+            <div class="priority-order">{item.order}</div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              {item.brands.length > 0 && (
+                <div class="brand-chip-row">
+                  {item.brands.map((b: string) => <span class="brand-chip">{b}</span>)}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{p.brandsTitle}</span>
+        <h2 class="h-section">{p.brandsLeadTitle}</h2>
+      </div>
+      <div class="brand-grid">
+        {p.brands.map((b) => (
+          <div class="brand-tile">
+            <div class="name">{b.name}</div>
+            <div class="country">{b.country}</div>
+            <div class="focus">{b.focus}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: 40px; text-align:center;">
+        <span class="eyebrow">{p.brandsOtherTitle}</span>
+        <div class="brand-chip-row" style="justify-content:center; margin-top:16px;">
+          {p.brandsOther.map((name: string) => <span class="brand-chip">{name}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== READY-TO-TALK BANNER ===================== -->
+  <section>
+    <div class="wrap">
+      <div class="cta-banner">
+        <div>
+          <h2>{h.ctaBannerTitle}</h2>
+          <p>{h.ctaBannerSubtitle}</p>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <a class="btn btn-primary" href={`${nextPath}#contact`}>{h.ctaBannerButton}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" style="background: var(--bg);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">{c.eyebrow}</span>
+        <h2 class="h-section">{c.heroTitle}</h2>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">{c.heroSubtitle}</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <h3>{c.infoTitle}</h3>
+
+          <div class="contact-row">
+            <div class="icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 8.6C9.10457 8.6 10 7.70457 10 6.6C10 5.49543 9.10457 4.6 8 4.6C6.89543 4.6 6 5.49543 6 6.6C6 7.70457 6.89543 8.6 8 8.6Z" stroke="#C9A227" stroke-width="1.3"/><path d="M8 14.6C10.6667 12 13.3333 9.6 13.3333 6.6C13.3333 3.6 10.9467 1.3 8 1.3C5.05333 1.3 2.66667 3.6 2.66667 6.6C2.66667 9.6 5.33333 12 8 14.6Z" stroke="#C9A227" stroke-width="1.3"/></svg>
+            </div>
+            <div>
+              <div class="k">{c.addressLabel}</div>
+              <div class="v">{c.address}</div>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="9" rx="1.4" stroke="#C9A227" stroke-width="1.3"/><path d="M2.6 4.2L8 8.4L13.4 4.2" stroke="#C9A227" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="k">{c.emailLabel}</div>
+              <div class="v"><a href="mailto:info@miu.mn">{c.email}</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h3>{c.formTitle}</h3>
+
+          <div class="alert alert-success" id="statusOk" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+            <div>{c.formSuccess}</div>
+          </div>
+          <div class="alert alert-danger" id="statusErr" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div>{c.formError}</div>
+          </div>
+          <div class="alert alert-success" id="prefillNote" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+            <div>{c.prefillNote} <button type="button" id="prefillClear" style="background:none;border:none;text-decoration:underline;color:inherit;cursor:pointer;font:inherit;padding:0;">{c.prefillClear}</button></div>
+          </div>
+
+          <form method="POST" action="/contact.php">
+            <input type="hidden" name="_next" value={nextPath} />
+            <p style="position:absolute; left:-9999px;" aria-hidden="true">
+              <label>Leave empty <input type="text" name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+
+            <div class="form-grid two">
+              <div class="field">
+                <label for="name">{c.formName}</label>
+                <input id="name" name="name" type="text" required />
+              </div>
+              <div class="field">
+                <label for="company">{c.formCompany}</label>
+                <input id="company" name="company" type="text" />
+              </div>
+              <div class="field">
+                <label for="email">{c.formEmail}</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+              <div class="field">
+                <label for="phone">{c.formPhone}</label>
+                <input id="phone" name="phone" type="tel" />
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:18px;">
+              <label for="subject">{c.formSubject}</label>
+              <select id="subject" name="subject">
+                {c.formSubjectOptions.map((opt: string) => <option value={opt}>{opt}</option>)}
+              </select>
+            </div>
+
+            <div class="field" style="margin-top:18px;">
+              <label for="message">{c.formMessage}</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">{c.formSubmit}</button>
+              <span class="form-note">info@miu.mn</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<script define:vars={{ tiers: ex.tiers, stages: ex.stages, subjectOptions: c.formSubjectOptions }}>
+  const params = new URLSearchParams(window.location.search);
+  const ok = document.getElementById('statusOk');
+  const err = document.getElementById('statusErr');
+  if (params.get('sent') === '1' && ok) ok.hidden = false;
+  if (params.get('error') === '1' && err) err.hidden = false;
+
+  const STORAGE_KEY = 'miu_explorer';
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      const tier = tiers.find((t) => t.key === saved.tier);
+      const stage = stages.find((s) => s.key === saved.stage);
+      if (tier && stage) {
+        const brand = (tier.brands.split(' · ')[0] || tier.brands).replace(/,.*/, '');
+        const cta = stage.cta.replace('{brand}', brand);
+
+        const messageEl = document.getElementById('message');
+        if (messageEl && !messageEl.value) {
+          messageEl.value = `${tier.title} — ${stage.label}\n${cta}`;
+        }
+        const subjectEl = document.getElementById('subject');
+        if (subjectEl && subjectOptions[1]) {
+          subjectEl.value = stage.key === 'tender' ? subjectOptions[1] : subjectOptions[0];
+        }
+        const note = document.getElementById('prefillNote');
+        if (note) note.hidden = false;
+
+        const clearBtn = document.getElementById('prefillClear');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', () => {
+            localStorage.removeItem(STORAGE_KEY);
+            if (messageEl) messageEl.value = '';
+            if (note) note.hidden = true;
+          });
+        }
+      }
+    }
+  } catch (e) { /* localStorage unavailable -- non-fatal, form just starts empty */ }
+</script>

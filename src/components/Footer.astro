@@ -9,12 +9,13 @@ interface Props {
 const { locale } = Astro.props;
 const { t } = useTranslations(locale);
 const year = 2026;
+const home = localizedPath(locale, '/');
 
 const links = [
-  { key: 'home', path: '/' },
-  { key: 'about', path: '/about' },
-  { key: 'products', path: '/products' },
-  { key: 'contact', path: '/contact' },
+  { key: 'home', hash: '' },
+  { key: 'about', hash: '#about' },
+  { key: 'products', hash: '#products' },
+  { key: 'contact', hash: '#contact' },
 ];
 ---
 
@@ -31,7 +32,7 @@ const links = [
       <div class="footer-col">
         <h4>{t('footer.navTitle')}</h4>
         {links.map((l) => (
-          <a href={localizedPath(locale, l.path)}>{t(`nav.${l.key}`)}</a>
+          <a href={`${home}${l.hash}`}>{t(`nav.${l.key}`)}</a>
         ))}
       </div>
 

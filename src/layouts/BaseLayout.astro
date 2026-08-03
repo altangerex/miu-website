@@ -9,9 +9,8 @@ interface Props {
   locale: Locale;
   title: string;
   description?: string;
-  active?: string;
 }
-const { locale, title, description, active } = Astro.props;
+const { locale, title, description } = Astro.props;
 const { t } = useTranslations(locale);
 
 const pathname = Astro.url.pathname;
@@ -52,7 +51,7 @@ const fullTitle = `${title} · ${t('brandShort')}`;
   <body>
     <a class="skip-link" href="#main">{t('skipToContent')}</a>
     <div class="page">
-      <Header locale={locale} active={active} />
+      <Header locale={locale} />
       <main id="main">
         <slot />
       </main>

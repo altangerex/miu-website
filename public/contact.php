@@ -16,18 +16,18 @@ $SUBJECT_PREFIX = 'MIU.mn — Вэбсайтын мессеж';
 function back($path, $status) {
     // Only allow same-site relative paths (prevent open redirect).
     if (!is_string($path) || $path === '' || $path[0] !== '/' || strpos($path, '//') === 0) {
-        $path = '/mn/contact/';
+        $path = '/mn/';
     }
     $sep = (strpos($path, '?') === false) ? '?' : '&';
-    header('Location: ' . $path . $sep . $status . '=1#form', true, 303);
+    header('Location: ' . $path . $sep . $status . '=1#contact', true, 303);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    back('/mn/contact/', 'error');
+    back('/mn/', 'error');
 }
 
-$next = isset($_POST['_next']) ? $_POST['_next'] : '/mn/contact/';
+$next = isset($_POST['_next']) ? $_POST['_next'] : '/mn/';
 
 // Honeypot: bots fill this hidden field. Pretend success, send nothing.
 if (!empty($_POST['bot-field'])) {

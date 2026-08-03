@@ -81,6 +81,10 @@ main { flex: 1; }
 section { padding: 88px 0; }
 @media (max-width: 720px) { section { padding: 56px 0; } }
 
+/* Anchor targets for the single-scroll nav -- offset so the sticky
+   76px header doesn't cover the top of the section on jump/scroll. */
+#home, #about, #products, #contact { scroll-margin-top: 76px; }
+
 /* ---- eyebrow / headings ---- */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
