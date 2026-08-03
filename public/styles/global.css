@@ -1,45 +1,45 @@
 /* ============================================================
    MIU — Mongolian Innovation Unity
-   Official brand palette (Brand Guidelines v1.0) + MIU Design
-   System v1.0 (component-level UI kit, imported 2026-07-08).
-   Ink Navy #16232E · Bronze #B8863B · Gold #C9A227 ·
-   Slate #6B7885 · Mist #ECEEF0 · Paper #FFFFFF.
+   MIU Design System (developer handoff, imported 2026-08-03 --
+   supersedes the earlier v1.0 pass's navy/page-bg values).
+   Gov Blue #1B2C6B · Bronze #B8863B · Gold #C9A227 ·
+   Slate #6B7885 · Paper #E7EAEC (page bg) · White #FFFFFF (cards).
    Variable NAMES below are kept from the original build to avoid
-   touching ~150 call sites; VALUES are now the official brand hex.
+   touching ~150 call sites; VALUES are now the new spec's hex.
    ============================================================ */
 
 :root {
-  --navy-deep: #16232E; /* Ink Navy — primary: backgrounds, wordmark, headings */
-  --navy: #26364A;      /* lighter navy tint — borders, secondary UI on light bg */
-  --navy-2: #384D66;    /* lightest navy tint — gradients, hover states */
-  --ink: #16232E;       /* body text = Ink Navy (13.6:1 on Paper, WCAG AAA) */
+  --navy-deep: #1B2C6B; /* Gov Blue — primary: backgrounds, wordmark, headings */
+  --navy: #22317A;      /* blue-grad — gradient stops, secondary UI on light bg */
+  --navy-2: #2C3E8F;    /* blue-hover — lightest gradient stop, hover/focus accents */
+  --ink: #1B2C6B;       /* body text = Gov Blue (AAA on white per spec) */
   --steel: #4A5763;     /* Steel — lead paragraph / emphasis body text (design system) */
   --muted: #6B7885;     /* Slate — secondary text */
   --muted-2: #7E8A96;   /* Slate tint — tertiary text */
   --muted-3: #9AA6AF;   /* Silver — quaternary / placeholder text (design system) */
-  --bg: #ECEEF0;        /* Mist — panel backgrounds */
-  --cloud: #F5F6F7;     /* Cloud — subtle fills inside Mist panels, table headers (design system) */
-  --surface: #FFFFFF;   /* Paper — base surface */
-  --border: #DDE2E5;    /* Mist-derived hairline border */
-  --border-soft: #ECEEF0; /* Mist */
+  --bg: #E7EAEC;        /* Paper — page/panel background */
+  --cloud: #F5F6F7;     /* Cloud — subtle fills, table headers (design system) */
+  --surface: #FFFFFF;   /* White — card surfaces */
+  --border: #DDE1E4;    /* input border */
+  --border-soft: #ECEEF0; /* Mist — borders, dividers, chart tracks */
   --copper: #B8863B;    /* Bronze — accent: rules, labels, emphasis */
-  --copper-dark: #96692A; /* Bronze, darker — hover/pressed (legacy, superseded by --accent-active for buttons) */
+  --copper-dark: #96692A; /* Bronze, darker — WCAG-safe for small text/labels on white (legacy, superseded by --accent-active for buttons) */
   --bronze-tint: #F6EFE1; /* pale Bronze tint — selected/hover backgrounds */
   --gold: #C9A227;      /* Gold — node highlight, on-navy accents */
 
-  /* Button system (design system v1.0): Primary = Navy, Accent = Bronze */
-  --primary: #16232E;        --primary-hover: #233542;   --primary-active: #0E181F;   --primary-disabled: #C6CCD1;
+  /* Button system: Primary = Gov Blue, Accent = Bronze */
+  --primary: #1B2C6B;        --primary-hover: #2C3E8F;   --primary-active: #101B4A;   --primary-disabled: #C6CCD1;
   --accent: #B8863B;         --accent-hover: #A5762F;    --accent-active: #8F6526;    --accent-disabled: #E4D3B5;
   --secondary-hover: #F5F6F7; --secondary-active: #ECEEF0; --secondary-disabled: #C6CCD1; --secondary-disabled-border: #E1E5E8;
   --ghost-hover: #F0F2F3;    --ghost-active: #E4E7EA;
 
-  /* Semantic status (design system v1.0) */
+  /* Semantic status */
   --success: #1E7A4D;   --success-bg: #F3F8F4; --success-border: #DCEBDF; --success-text: #1E5E3C;
   --warning: #B8863B;   --warning-bg: #FBF6EC; --warning-border: #EEDFC4; --warning-text: #8A6320;
-  --danger:  #C0453A;   --danger-bg:  #FBF4F3; --danger-border:  #EDD5D2; --danger-text:  #8A3A32;
-  --info:    #16232E;
+  --danger:  #C0453A;   --danger-hover: #A63A30; --danger-bg:  #FBF4F3; --danger-border:  #EDD5D2; --danger-text:  #8A3A32;
+  --info:    #1B2C6B;   --info-bg: #EEF1F3;    --info-text: #334451;
 
-  /* Elevation (design system v1.0) */
+  /* Elevation */
   --shadow-1: 0 1px 2px rgba(20,35,46,.06), 0 1px 3px rgba(20,35,46,.08);
   --shadow-2: 0 4px 10px rgba(20,35,46,.08), 0 2px 4px rgba(20,35,46,.06);
   --shadow-3: 0 2px 6px rgba(20,35,46,.08), 0 20px 50px rgba(20,35,46,.14);
@@ -155,14 +155,14 @@ section { padding: 88px 0; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
 .brand { display: flex; align-items: center; gap: 10px; font-family: 'Archivo', system-ui, sans-serif; font-weight: 700; font-size: 19px; color: var(--navy-deep); }
 
-/* ---- MiU wordmark: "M" + node-bulb icon (as the lowercase "i") + "U" ---- */
-.miu-mark { display: inline-flex; align-items: baseline; gap: 1px; line-height: 1; }
-.miu-mark-m, .miu-mark-u {
+/* ---- MIU mark: real ray-burst bulb icon (design handoff 2026-08-03) + wordmark ---- */
+.miu-mark { display: inline-flex; align-items: center; gap: 8px; line-height: 1; }
+.miu-mark svg { width: 0.9em; height: auto; flex-shrink: 0; }
+.miu-mark-text {
   font-family: 'Archivo', system-ui, sans-serif; font-weight: 700;
   font-size: 1em; color: var(--navy-deep); letter-spacing: -.01em;
 }
-.miu-mark.light .miu-mark-m, .miu-mark.light .miu-mark-u { color: #fff; }
-.bulb-icon { width: 0.62em; height: 0.81em; align-self: flex-end; margin: 0 -0.01em; }
+.miu-mark.light .miu-mark-text { color: #fff; }
 
 .brand-sub { display: none; }
 @media (min-width: 640px) {
@@ -433,7 +433,7 @@ section { padding: 88px 0; }
   color: var(--ink); background: var(--surface); transition: border-color .15s, box-shadow .15s;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-  outline: none; border-color: var(--navy-2); box-shadow: 0 0 0 3px rgba(18,58,92,.12);
+  outline: none; border-color: var(--navy-deep); box-shadow: 0 0 0 3px rgba(27,44,107,.12);
 }
 .field textarea { resize: vertical; min-height: 120px; }
 .form-actions { margin-top: 6px; display: flex; align-items: center; gap: 16px; }
@@ -484,7 +484,7 @@ section { padding: 88px 0; }
 .hero-home {
   overflow: hidden;
   background-image:
-    linear-gradient(160deg, rgba(22,35,46,.90) 0%, rgba(22,35,46,.80) 45%, rgba(22,35,46,.62) 100%),
+    linear-gradient(160deg, rgba(27,44,107,.95) 0%, rgba(27,44,107,.90) 45%, rgba(27,44,107,.80) 100%),
     url('/images/hero-openpit-mine.jpg');
   background-size: cover;
   background-position: center 60%;
