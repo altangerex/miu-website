@@ -19,8 +19,7 @@
     "contactTitle": "Contact",
     "address": "Room 5006, Galaxy Tower, 15th khoroo, Khan-Uul district, Ulaanbaatar, Mongolia",
     "rights": "All rights reserved.",
-    "regTitle": "Founded 2012.02.11 · 14 years of experience",
-    "regNumber": "State registration No. 5563909"
+    "regTitle": "Founded in 2012"
   },
 
   "home": {
@@ -134,8 +133,6 @@
     "originTitle": "Company information",
     "originFounded": "Founded",
     "originFoundedValue": "February 11, 2012",
-    "originDomain": "Domain",
-    "originDomainValue": "miu.mn",
 
     "visionTitle": "Vision",
     "vision": "To create a new wave of modern eco-technology and build a sustainable way of life for the future.",
