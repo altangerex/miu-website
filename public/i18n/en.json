@@ -26,21 +26,9 @@
   "home": {
     "eyebrow": "MIU — Mongolian Innovation Unity",
     "seoDescription": "MIU LLC — official distributor of industrial automation, instrumentation, electrical and mechanical equipment in Mongolia since 2012. Authorized partner of Siemens, ABB, Schneider Electric, Yokogawa, Fluke and JUMO.",
-    "heroTitle": "Leading global technology brands, delivered to Mongolia's mining and industrial sector",
-    "heroSubtitle": "We supply original-quality measuring instruments, electrical and mechanical equipment from world-leading brands — Siemens, ABB, Schneider Electric, Yokogawa, Fluke — for both tenders and commercial trade.",
-    "heroLine1": "Some distributors sell what's already in the warehouse.",
-    "heroLine2": "We build what your operation actually needs.",
-    "heroSubBrands": "Siemens · ABB · Schneider Electric · Yokogawa · Fluke — matched to your tier, not your budget line.",
-    "scrollCue": "Find your fit",
-    "ctaPrimary": "Send a partnership inquiry",
-    "ctaSecondary": "Products & brands",
 
     "positioning": "The world's best technology. On time. To specification. In Mongolia.",
     "positioningSub": "For Mongolian industry that cannot afford downtime, MIU is the authorized distribution partner delivering the world's most trusted industrial technology — backed by local engineering, documentation, and accountability that global vendors alone cannot offer.",
-
-    "visionCtaEyebrow": "Vision",
-    "visionCtaTitle": "Our vision for Mongolia's industrial future",
-    "visionCtaButton": "About us",
 
     "brandShowcaseEyebrow": "Partner brands",
     "brandShowcaseTitle": "Official partner to 8 leading global brands",
@@ -55,7 +43,6 @@
       { "title": "Supplying Erdenet Mining", "desc": "A real relationship with Mongolia's largest copper mine." }
     ],
 
-    "statsTitle": "By the numbers",
     "stats": [
       { "value": "14+", "label": "years of experience (since 2012)" },
       { "value": "8", "label": "global partner brands" },
@@ -64,7 +51,6 @@
     ],
 
     "brandsTitle": "Global partner brands",
-    "brandsSubtitle": "Original-quality products, reliably sourced from official channels",
 
     "clientsTitle": "Clients & target markets",
     "currentClientsLabel": "Current clients",
@@ -170,7 +156,7 @@
     "principlesSubtitle": "We operate by international standards of business ethics",
     "principles": [
       { "title": "Reliability", "desc": "Fulfilling commitments, tender terms and deadlines on time, every time." },
-      { "title": "Protecting brand reputation", "desc": "Respecting the vision, goals and values of our partner brands, acting as a long-term reliable partner in promoting and introducing their products to the domestic market." },
+      { "title": "Protecting brand reputation", "desc": "Respecting the vision, goals and values of our partner brands, and acting as a long-term reliable partner in bringing their products into the domestic market." },
       { "title": "Fair pricing", "desc": "Growing value through reliable, sustainable, responsive delivery rather than high margins." }
     ],
 
@@ -230,9 +216,6 @@
     ],
     "brandsOtherTitle": "Other partner brands",
     "brandsOther": ["JUMO", "FAT", "London Electric"],
-
-    "principleTitle": "Our supply principle",
-    "principleText": "Every product we supply is original-quality, reliably sourced from official channels. We work with the manufacturer authorization and conformity certificates that tenders require.",
 
     "ctaTitle": "Have a question about a specific product?",
     "ctaButton": "Contact us"
