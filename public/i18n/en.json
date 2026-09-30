@@ -169,11 +169,7 @@
       { "code": "24100", "name": "Trade in iron and steel structures" },
       { "code": "46530", "name": "Trade in mining equipment" },
       { "code": "46100", "name": "Wholesale trade on a fee or contract basis" },
-      { "code": "82190", "name": "Project implementation" },
       { "code": "47220", "name": "Trade in renewable energy equipment" },
-      { "code": "62090", "name": "Information technology activities" },
-      { "code": "58200", "name": "Software services" },
-      { "code": "95110", "name": "Manufacture of computer equipment accessories" },
       { "code": "45300", "name": "Trade in automobile parts and components" }
     ]
   },

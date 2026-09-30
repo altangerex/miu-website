@@ -35,6 +35,30 @@ const pc = dict.process;
 const qa = dict.quality;
 const ex = dict.home.explorer;
 const nextPath = localizedPath(locale, '/');
+
+// Real official logos (sourced from Wikimedia Commons, 2026-09-30) for the
+// 5 brands with a confidently-verified source. The "other partner brands"
+// chip row (JUMO etc.) stays text-only -- no reliably-sourced official logo
+// found for those, and chips are already a lighter-weight treatment.
+const BRAND_LOGOS: Record<string, string> = {
+  Siemens: '/images/brands/siemens.svg',
+  ABB: '/images/brands/abb.svg',
+  'Schneider Electric': '/images/brands/schneider-electric.svg',
+  Yokogawa: '/images/brands/yokogawa.svg',
+  Fluke: '/images/brands/fluke.svg',
+};
+
+// Why-MIU icons, one per item in fixed order (official sourcing / tender
+// expertise / logistics / engineering support). Hand-drawn to match the
+// design system's own icon spec: 24px grid, 1.6px stroke, round caps/joins,
+// no fill, single color -- the same rules used for every other line icon
+// already on the site (contact info icons, alert icons).
+const WHY_MIU_ICONS = [
+  '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 3v5a1 1 0 0 0 1 1h5"/><path d="M9 14l2 2 4-4"/>',
+  '<path d="M3 10l9-6 9 6"/><path d="M4 10v10M8 10v10M12 10v10M16 10v10M20 10v10"/><path d="M2 20h20"/>',
+  '<path d="M2 8h11v8H2z"/><path d="M13 11h4l3 3v2h-7z"/><circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',
+  '<path d="M14.7 6.3a4 4 0 0 0-5.6 5.1L3 17.5V21h3.5l6.1-6.1a4 4 0 0 0 5.1-5.6l-2.5 2.5-2.2-.6-.6-2.2z"/>',
+];
 ---
 
 <BaseLayout locale={locale} title={t('nav.home')} description={h.seoDescription}>
@@ -216,6 +240,11 @@ const nextPath = localizedPath(locale, '/');
       <div class="brand-grid">
         {p.brands.map((b) => (
           <div class="brand-tile">
+            {BRAND_LOGOS[b.name] && (
+              <div class="logo">
+                <img src={BRAND_LOGOS[b.name]} alt={`${b.name} logo`} loading="lazy" />
+              </div>
+            )}
             <div class="name">{b.name}</div>
             <div class="country">{b.country}</div>
             <div class="focus">{b.focus}</div>
@@ -257,8 +286,9 @@ const nextPath = localizedPath(locale, '/');
         <h2 class="h-section">{wm.title}</h2>
       </div>
       <div class="value-grid highlights-grid">
-        {wm.items.map((item) => (
+        {wm.items.map((item, i) => (
           <div class="value-card">
+            <div class="icon" set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${WHY_MIU_ICONS[i]}</svg>`} />
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </div>

@@ -51,6 +51,7 @@ const links = [
       <a data-key={l.key} href={`${home}${l.hash}`}>{t(`nav.${l.key}`)}</a>
     ))}
     <a href={langHref}>{otherLocale === 'en' ? 'English' : 'Монгол'}</a>
+    <a class="btn btn-accent mobile-nav-cta" href={`${home}#contact`}>{t('nav.cta')}</a>
   </nav>
 </header>
 
